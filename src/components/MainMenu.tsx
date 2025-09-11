@@ -116,7 +116,7 @@ export function MainMenu({ onNavigate, playerName }: MainMenuProps) {
           >
             <motion.button
               onClick={() => onNavigate('categories')}
-              className="btn-primary w-full flex items-center justify-center gap-4 text-xl py-6 group"
+              className="btn-special w-full flex items-center justify-center gap-4 text-2xl py-8 group"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -126,7 +126,7 @@ export function MainMenu({ onNavigate, playerName }: MainMenuProps) {
               >
                 <Play size={28} />
               </motion.div>
-              <span className="font-black">COMENZAR AVENTURA</span>
+              <span className="font-black tracking-wider">COMENZAR AVENTURA</span>
               <motion.div
                 className="opacity-0 group-hover:opacity-100 transition-opacity"
                 animate={{ rotate: 360 }}
@@ -139,7 +139,7 @@ export function MainMenu({ onNavigate, playerName }: MainMenuProps) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <motion.button
                 onClick={() => onNavigate('leaderboard')}
-                className="btn-secondary flex items-center justify-center gap-3 text-lg py-5 group"
+                className="btn-secondary flex items-center justify-center gap-3 text-lg py-6 group"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -149,13 +149,13 @@ export function MainMenu({ onNavigate, playerName }: MainMenuProps) {
                 >
                   <Trophy size={24} />
                 </motion.div>
-                <span className="font-bold">Ranking</span>
+                <span className="font-bold tracking-wide">Ranking</span>
                 <span className="opacity-0 group-hover:opacity-100 transition-opacity">🏆</span>
               </motion.button>
 
               <motion.button
                 onClick={() => onNavigate('profile')}
-                className="btn-ghost flex items-center justify-center gap-3 text-lg py-5 group"
+                className="btn-ghost flex items-center justify-center gap-3 text-lg py-6 group"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -165,7 +165,7 @@ export function MainMenu({ onNavigate, playerName }: MainMenuProps) {
                 >
                   <User size={24} />
                 </motion.div>
-                <span className="font-bold">{playerName ? 'Mi Perfil' : 'Crear Perfil'}</span>
+                <span className="font-bold tracking-wide">{playerName ? 'Mi Perfil' : 'Crear Perfil'}</span>
                 <span className="opacity-0 group-hover:opacity-100 transition-opacity">👤</span>
               </motion.button>
             </div>

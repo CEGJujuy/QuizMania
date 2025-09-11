@@ -102,17 +102,17 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
                     <button
                       onClick={handleSave}
                       disabled={!name.trim()}
-                      className="btn-success flex-1 flex items-center justify-center gap-2 text-lg"
+                      className="btn-success flex-1 flex items-center justify-center gap-3 text-lg py-5"
                     >
                       <Save size={20} />
-                      Guardar
+                      <span className="font-bold tracking-wide">Guardar Perfil</span>
                     </button>
                     {player && (
                       <button
                         onClick={() => setIsEditing(false)}
-                        className="btn-ghost flex-1 text-lg"
+                        className="btn-ghost flex-1 text-lg py-5"
                       >
-                        Cancelar
+                        <span className="font-bold tracking-wide">Cancelar</span>
                       </button>
                     )}
                   </div>
@@ -122,10 +122,10 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
                   <h2 className="text-3xl sm:text-4xl font-bold mb-3 text-gradient">{player?.name}</h2>
                   <button
                     onClick={() => setIsEditing(true)}
-                    className="btn-primary flex items-center gap-2 text-lg"
+                    className="btn-primary flex items-center gap-3 text-lg py-4 px-8"
                   >
                     <User size={20} />
-                    Editar Perfil
+                    <span className="font-bold tracking-wide">Editar Perfil</span>
                   </button>
                 </div>
               )}
@@ -182,6 +182,12 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
                 <div className="text-center py-12 text-white/80">
                   <div className="text-6xl mb-4">🎯</div>
                   <p className="text-lg">¡Juega más partidas para desbloquear logros!</p>
+                  <button
+                    onClick={() => onNavigate('categories')}
+                    className="btn-primary mt-6 flex items-center gap-2 mx-auto"
+                  >
+                    <span className="font-bold tracking-wide">Comenzar a Jugar</span>
+                  </button>
                 </div>
               ) : (
                 <div className="grid gap-3">

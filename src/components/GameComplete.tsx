@@ -125,45 +125,45 @@ export function GameComplete({ session, onNavigate, onPlayAgain }: GameCompleteP
         >
           <button
             onClick={onPlayAgain}
-            className="btn-primary w-full flex items-center justify-center gap-3 text-lg"
+            className="btn-special w-full flex items-center justify-center gap-4 text-xl py-6"
           >
             <RotateCcw size={20} />
-            Jugar de Nuevo
+            <span className="font-black tracking-wider">JUGAR DE NUEVO</span>
           </button>
 
           <div className="grid grid-cols-2 gap-4">
             <button
               onClick={() => onNavigate('categories')}
-              className="btn-secondary flex items-center justify-center gap-2 text-base"
+              className="btn-secondary flex items-center justify-center gap-3 text-base py-4"
             >
               <Target size={18} />
-              Categorías
+              <span className="font-bold tracking-wide">Categorías</span>
             </button>
 
             <button
               onClick={() => onNavigate('leaderboard')}
-              className="btn-success flex items-center justify-center gap-2 text-base"
+              className="btn-success flex items-center justify-center gap-3 text-base py-4"
             >
               <Trophy size={18} />
-              Ranking
+              <span className="font-bold tracking-wide">Ranking</span>
             </button>
           </div>
 
           <button
             onClick={() => onNavigate('menu')}
-            className="btn-ghost w-full flex items-center justify-center gap-2"
+            className="btn-ghost w-full flex items-center justify-center gap-3 py-4"
           >
             <Home size={18} />
-            Menú Principal
+            <span className="font-bold tracking-wide">Menú Principal</span>
           </button>
 
           {navigator.share && (
             <button
               onClick={shareScore}
-              className="w-full py-3 text-white/70 hover:text-white transition-colors flex items-center justify-center gap-2 rounded-2xl hover:bg-white/10"
+              className="btn-ghost w-full flex items-center justify-center gap-3 py-4"
             >
               <Share2 size={18} />
-              Compartir Resultado
+              <span className="font-bold tracking-wide">Compartir Resultado</span>
             </button>
           )}
         </motion.div>
