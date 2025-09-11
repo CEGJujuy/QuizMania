@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Clock, Heart, Zap, ArrowLeft, CheckCircle, XCircle } from 'lucide-react';
+import { Clock, Heart, Zap, ArrowLeft, CheckCircle, XCircle, BookOpen } from 'lucide-react';
 import { useGameLogic } from '../hooks/useGameLogic';
 import { Player, LeaderboardEntry, GameSession } from '../types';
 import { categories } from '../data/questions';
@@ -60,7 +60,7 @@ export function GameScreen({
             Volver
           </button>
           
-          <div className={`px-6 py-3 rounded-full bg-gradient-to-r ${category.color} text-white font-semibold shadow-lg`}>
+          <div className={`px-6 py-3 rounded-2xl bg-gradient-to-r ${category.color} text-white font-semibold shadow-lg`}>
             <span className="text-lg">{category.icon}</span>
             <span className="ml-2">{category.name}</span>
           </div>
@@ -69,7 +69,7 @@ export function GameScreen({
         </div>
 
         {/* Progress Bar */}
-        <div className="mb-8">
+        <div className="mb-8 max-w-4xl mx-auto">
           <div className="flex justify-between text-slate-600 mb-3 font-medium">
             <span>Pregunta {session.currentQuestionIndex + 1} de {categoryQuestions.length}</span>
             <span>{Math.round(progress)}% completado</span>
@@ -85,7 +85,7 @@ export function GameScreen({
         </div>
 
         {/* Game Stats */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 max-w-4xl mx-auto">
           <div className="stat-card">
             <div className="stat-value text-blue-600">{session.score}</div>
             <div className="stat-label">Puntos</div>
@@ -125,7 +125,7 @@ export function GameScreen({
           key={currentQuestion.id}
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
-          className="card-elevated p-8 mb-8"
+          className="card-elevated p-8 mb-8 max-w-4xl mx-auto"
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3">
             <span className={`badge ${
@@ -189,7 +189,7 @@ export function GameScreen({
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-6 p-6 rounded-xl bg-slate-50 border border-slate-200"
+              className="mt-6 p-6 rounded-2xl bg-slate-50 border border-slate-200"
             >
               {selectedAnswer === currentQuestion.correctAnswer ? (
                 <div className="text-emerald-600 font-bold text-lg">

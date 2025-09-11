@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Trophy, Medal, Award, ArrowLeft, Calendar, Zap, Crown } from 'lucide-react';
+import { Trophy, Medal, Award, ArrowLeft, Calendar, Zap, Crown, Target } from 'lucide-react';
 import { LeaderboardEntry } from '../types';
 import { categories } from '../data/questions';
 
@@ -41,6 +41,9 @@ export function Leaderboard({ leaderboard, onNavigate }: LeaderboardProps) {
           </button>
           
           <div className="text-center flex-1 mx-8">
+            <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl shadow-lg mb-4">
+              <Trophy className="w-6 h-6 text-white" />
+            </div>
             <h1 className="heading-secondary mb-2">🏆 Ranking Global</h1>
             <p className="text-body">Top 10 mejores puntajes</p>
           </div>
@@ -52,7 +55,7 @@ export function Leaderboard({ leaderboard, onNavigate }: LeaderboardProps) {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="card-elevated text-center py-16 px-8"
+            className="card-elevated text-center py-16 px-8 max-w-2xl mx-auto"
           >
             <div className="text-8xl mb-6">🎯</div>
             <h2 className="heading-secondary mb-6 text-gradient">¡Sé el primero!</h2>
@@ -67,7 +70,7 @@ export function Leaderboard({ leaderboard, onNavigate }: LeaderboardProps) {
             </button>
           </motion.div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-4 max-w-4xl mx-auto">
             {sortedLeaderboard.map((entry, index) => {
               const category = getCategoryInfo(entry.category);
               const isTopThree = index < 3;
@@ -142,14 +145,16 @@ export function Leaderboard({ leaderboard, onNavigate }: LeaderboardProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6"
+            className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto"
           >
             <div className="stat-card">
+              <Target className="w-8 h-8 text-blue-500 mx-auto mb-3" />
               <div className="stat-value text-blue-600">{sortedLeaderboard.length}</div>
               <div className="stat-label">Jugadores</div>
             </div>
             
             <div className="stat-card">
+              <Trophy className="w-8 h-8 text-emerald-500 mx-auto mb-3" />
               <div className="stat-value text-emerald-600">
                 {Math.max(...sortedLeaderboard.map(e => e.score)).toLocaleString()}
               </div>
@@ -157,6 +162,7 @@ export function Leaderboard({ leaderboard, onNavigate }: LeaderboardProps) {
             </div>
             
             <div className="stat-card">
+              <Zap className="w-8 h-8 text-orange-500 mx-auto mb-3" />
               <div className="stat-value text-orange-600">
                 {Math.max(...sortedLeaderboard.map(e => e.streak))}
               </div>

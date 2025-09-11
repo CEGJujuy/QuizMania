@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lock, Star, ArrowLeft, Users, Target, Zap, ChevronRight } from 'lucide-react';
+import { Lock, Star, ArrowLeft, Users, Target, Zap, ChevronRight, BookOpen } from 'lucide-react';
 
 import { MainMenu } from './components/MainMenu';
 import { GameScreen } from './components/GameScreen';
@@ -74,6 +74,9 @@ function App() {
           </button>
           
           <div className="text-center flex-1 mx-8">
+            <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl shadow-lg mb-4">
+              <BookOpen className="w-6 h-6 text-white" />
+            </div>
             <h1 className="heading-secondary mb-2">Elige tu Categoría</h1>
             <p className="text-body">Selecciona una categoría y demuestra tu conocimiento</p>
           </div>
@@ -86,10 +89,10 @@ function App() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="card-elevated p-8 mb-12"
+            className="card-elevated p-8 mb-12 max-w-2xl mx-auto"
           >
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <div className="text-5xl">{player.avatar}</div>
+              <div className="text-6xl">{player.avatar}</div>
               <div className="text-center sm:text-left">
                 <h3 className="heading-tertiary mb-2">{player.name}</h3>
                 <div className="flex items-center justify-center sm:justify-start gap-2">
@@ -104,7 +107,7 @@ function App() {
         )}
 
         {/* Categories Grid */}
-        <div className="grid-responsive mb-16">
+        <div className="grid-responsive mb-16 max-w-5xl mx-auto">
           {categories.map((category, index) => {
             const isUnlocked = unlockedCategories.includes(category.id);
             
@@ -119,7 +122,7 @@ function App() {
               >
                 {/* Lock Overlay */}
                 {!isUnlocked && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-white/95 rounded-xl backdrop-blur-sm z-10">
+                  <div className="absolute inset-0 flex items-center justify-center bg-white/95 rounded-2xl backdrop-blur-sm z-10">
                     <div className="text-center">
                       <Lock className="w-12 h-12 text-slate-400 mx-auto mb-4" />
                       <p className="text-slate-600 font-semibold">
@@ -165,7 +168,7 @@ function App() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="card-elevated p-8"
+          className="card-elevated p-8 max-w-4xl mx-auto"
         >
           <h3 className="heading-tertiary mb-8 text-center">Tu Progreso</h3>
           <div className="grid-responsive-4">

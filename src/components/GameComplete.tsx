@@ -72,7 +72,7 @@ export function GameComplete({ session, onNavigate, onPlayAgain }: GameCompleteP
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className={`inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r ${category.color} text-white font-semibold mb-8 shadow-lg text-lg`}
+              className={`inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-gradient-to-r ${category.color} text-white font-semibold mb-8 shadow-lg text-lg`}
             >
               <span className="text-xl">{category.icon}</span>
               <span>{category.name}</span>

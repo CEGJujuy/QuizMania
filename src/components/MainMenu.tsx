@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Play, Trophy, User, Star, Award, ArrowRight, Sparkles } from 'lucide-react';
+import { Play, Trophy, User, Star, Award, ArrowRight, Sparkles, BookOpen, Target } from 'lucide-react';
 
 interface MainMenuProps {
   onNavigate: (screen: string) => void;
@@ -13,8 +13,8 @@ export function MainMenu({ onNavigate, playerName }: MainMenuProps) {
       <div className="hero-background"></div>
       <div className="hero-content">
         <div className="container-custom section-padding">
-          <div className="max-w-4xl mx-auto">
-            {/* Hero Section */}
+          <div className="max-w-6xl mx-auto">
+            {/* Header */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -28,14 +28,8 @@ export function MainMenu({ onNavigate, playerName }: MainMenuProps) {
                 transition={{ delay: 0.2, duration: 0.6 }}
                 className="mb-8"
               >
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-600 rounded-2xl shadow-lg mb-6">
-                  <motion.div
-                    animate={{ rotate: [0, 5, -5, 0] }}
-                    transition={{ duration: 4, repeat: Infinity }}
-                    className="text-3xl text-white"
-                  >
-                    🧠
-                  </motion.div>
+                <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-3xl shadow-lg mb-6">
+                  <BookOpen className="w-10 h-10 text-white" />
                 </div>
               </motion.div>
 
@@ -56,8 +50,8 @@ export function MainMenu({ onNavigate, playerName }: MainMenuProps) {
                 transition={{ delay: 0.6, duration: 0.6 }}
                 className="text-body max-w-2xl mx-auto mb-8"
               >
-                Desafía tu conocimiento con nuestra plataforma de trivia interactiva. 
-                Múltiples categorías, sistema de puntuación avanzado y ranking global.
+                Plataforma educativa de trivia interactiva. Desafía tu conocimiento 
+                con preguntas de múltiples categorías y compite por el primer lugar.
               </motion.p>
 
               {/* Features */}
@@ -79,6 +73,10 @@ export function MainMenu({ onNavigate, playerName }: MainMenuProps) {
                   <Trophy className="w-3 h-3 mr-2" />
                   Ranking Global
                 </div>
+                <div className="badge badge-gray">
+                  <Target className="w-3 h-3 mr-2" />
+                  Educativo
+                </div>
               </motion.div>
             </motion.div>
 
@@ -88,7 +86,7 @@ export function MainMenu({ onNavigate, playerName }: MainMenuProps) {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1, duration: 0.5 }}
-                className="card-elevated p-8 mb-12 text-center"
+                className="card-elevated p-8 mb-12 text-center max-w-md mx-auto"
               >
                 <div className="flex items-center justify-center mb-4">
                   <Sparkles className="w-5 h-5 text-blue-500 mr-3" />
@@ -104,7 +102,7 @@ export function MainMenu({ onNavigate, playerName }: MainMenuProps) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.2, duration: 0.6 }}
-              className="space-y-6"
+              className="space-y-8"
             >
               {/* Primary CTA */}
               <div className="text-center">
@@ -112,14 +110,14 @@ export function MainMenu({ onNavigate, playerName }: MainMenuProps) {
                   onClick={() => onNavigate('categories')}
                   className="btn btn-primary btn-xl inline-flex items-center gap-3 shadow-medium hover:shadow-lg"
                 >
-                  <Play className="w-5 h-5" />
+                  <Play className="w-6 h-6" />
                   <span className="font-bold">Comenzar a Jugar</span>
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-6 h-6" />
                 </button>
               </div>
 
               {/* Secondary Actions */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-lg mx-auto">
                 <button
                   onClick={() => onNavigate('leaderboard')}
                   className="btn btn-secondary btn-lg flex items-center justify-center gap-3"

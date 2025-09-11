@@ -47,9 +47,14 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
             Volver
           </button>
           
-          <h1 className="heading-secondary">
-            {player ? 'Mi Perfil' : 'Crear Perfil'}
-          </h1>
+          <div className="text-center flex-1 mx-8">
+            <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl shadow-lg mb-4">
+              <User className="w-6 h-6 text-white" />
+            </div>
+            <h1 className="heading-secondary">
+              {player ? 'Mi Perfil' : 'Crear Perfil'}
+            </h1>
+          </div>
           
           <div className="w-20"></div>
         </div>
