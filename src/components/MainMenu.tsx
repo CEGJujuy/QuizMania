@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Play, Trophy, User, Gamepad2, Sparkles, Zap, Star } from 'lucide-react';
+import { Play, Trophy, User, Sparkles, Star, Award } from 'lucide-react';
 
 interface MainMenuProps {
   onNavigate: (screen: string) => void;
@@ -9,189 +9,172 @@ interface MainMenuProps {
 
 export function MainMenu({ onNavigate, playerName }: MainMenuProps) {
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Floating Background Shapes */}
-      <div className="floating-shapes">
-        <div className="floating-shape"></div>
-        <div className="floating-shape"></div>
-        <div className="floating-shape"></div>
-        <div className="floating-shape"></div>
-      </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8"
-      >
-        <div className="glass-card max-w-2xl w-full text-center p-8 sm:p-12 neon-glow">
-          {/* Logo and Title */}
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      <div className="container-custom section-padding">
+        <div className="max-w-4xl mx-auto">
+          {/* Hero Section */}
           <motion.div
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ delay: 0.3, type: "spring", stiffness: 200, damping: 15 }}
-            className="mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
           >
-            <div className="relative">
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="text-8xl sm:text-9xl mb-6 inline-block"
-              >
-                🧠
-              </motion.div>
-              <motion.div
-                className="absolute -top-2 -right-2 text-3xl"
-                animate={{ scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                ⚡
-              </motion.div>
-            </div>
-            
-            <motion.h1
-              className="text-5xl sm:text-6xl lg:text-7xl font-black text-gradient mb-6"
-              animate={{ 
-                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-              }}
-              transition={{ duration: 3, repeat: Infinity }}
-            >
-              QuizMania
-            </motion.h1>
-            
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="text-white/90 text-xl sm:text-2xl font-light mb-4"
-            >
-              ¡Desafía tu mente y conquista el conocimiento!
-            </motion.p>
-            
+            {/* Logo */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.8 }}
-              className="flex items-center justify-center gap-2 text-yellow-400"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="mb-8"
             >
-              <Star className="animate-pulse" size={20} />
-              <span className="font-semibold">Plataforma de Trivia Interactiva</span>
-              <Star className="animate-pulse" size={20} />
+              <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-3xl shadow-lg mb-6">
+                <motion.div
+                  animate={{ rotate: [0, 10, -10, 0] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                  className="text-4xl text-white"
+                >
+                  🧠
+                </motion.div>
+              </div>
             </motion.div>
-          </motion.div>
 
-          {/* Welcome Back Message */}
-          {playerName && (
+            {/* Title */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              className="heading-primary mb-6"
+            >
+              <span className="text-gradient">QuizMania</span>
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.6 }}
+              className="text-body max-w-2xl mx-auto mb-8"
+            >
+              Desafía tu conocimiento con nuestra plataforma de trivia interactiva. 
+              Múltiples categorías, sistema de puntuación avanzado y ranking global.
+            </motion.p>
+
+            {/* Features */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1 }}
-              className="mb-10 p-6 glass-card pulse-glow"
+              transition={{ delay: 0.8, duration: 0.6 }}
+              className="flex flex-wrap justify-center gap-4 mb-12"
             >
-              <div className="flex items-center justify-center gap-3 mb-3">
-                <motion.div
-                  animate={{ rotate: [0, 10, -10, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  <Sparkles className="text-yellow-400" size={24} />
-                </motion.div>
-                <p className="text-white/90 font-semibold text-lg">¡Bienvenido de vuelta!</p>
-                <motion.div
-                  animate={{ rotate: [0, -10, 10, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
-                >
-                  <Zap className="text-purple-400" size={24} />
-                </motion.div>
+              <div className="badge badge-primary">
+                <Star className="w-4 h-4 mr-2" />
+                5 Categorías
               </div>
-              <p className="font-bold text-2xl text-gradient">{playerName}</p>
+              <div className="badge badge-success">
+                <Award className="w-4 h-4 mr-2" />
+                Sistema de Logros
+              </div>
+              <div className="badge badge-warning">
+                <Trophy className="w-4 h-4 mr-2" />
+                Ranking Global
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Welcome Back Card */}
+          {playerName && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1, duration: 0.5 }}
+              className="card-elevated p-8 mb-12 text-center"
+            >
+              <div className="flex items-center justify-center mb-4">
+                <Sparkles className="w-6 h-6 text-blue-500 mr-3" />
+                <h3 className="text-xl font-semibold text-slate-800">¡Bienvenido de vuelta!</h3>
+                <Sparkles className="w-6 h-6 text-blue-500 ml-3" />
+              </div>
+              <p className="text-2xl font-bold text-gradient">{playerName}</p>
             </motion.div>
           )}
 
           {/* Action Buttons */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
             className="space-y-6"
           >
-            <motion.button
-              onClick={() => onNavigate('categories')}
-              className="btn-special w-full flex items-center justify-center gap-4 text-2xl py-8 group"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <motion.div
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
+            {/* Primary CTA */}
+            <div className="text-center">
+              <button
+                onClick={() => onNavigate('categories')}
+                className="btn-primary btn-large inline-flex items-center gap-4 text-xl font-bold px-12 py-6 rounded-2xl shadow-lg hover:shadow-xl"
               >
-                <Play size={28} />
-              </motion.div>
-              <span className="font-black tracking-wider">COMENZAR AVENTURA</span>
-              <motion.div
-                className="opacity-0 group-hover:opacity-100 transition-opacity"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                🎯
-              </motion.div>
-            </motion.button>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <motion.button
-                onClick={() => onNavigate('leaderboard')}
-                className="btn-secondary flex items-center justify-center gap-3 text-lg py-6 group"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
+                <Play className="w-6 h-6" />
+                <span>Comenzar a Jugar</span>
                 <motion.div
-                  animate={{ y: [0, -3, 0] }}
+                  animate={{ x: [0, 4, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
                 >
-                  <Trophy size={24} />
+                  →
                 </motion.div>
-                <span className="font-bold tracking-wide">Ranking</span>
-                <span className="opacity-0 group-hover:opacity-100 transition-opacity">🏆</span>
-              </motion.button>
+              </button>
+            </div>
 
-              <motion.button
-                onClick={() => onNavigate('profile')}
-                className="btn-ghost flex items-center justify-center gap-3 text-lg py-6 group"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+            {/* Secondary Actions */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+              <button
+                onClick={() => onNavigate('leaderboard')}
+                className="btn-secondary btn-large flex items-center justify-center gap-3 group"
               >
-                <motion.div
-                  animate={{ rotate: [0, 15, -15, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  <User size={24} />
-                </motion.div>
-                <span className="font-bold tracking-wide">{playerName ? 'Mi Perfil' : 'Crear Perfil'}</span>
-                <span className="opacity-0 group-hover:opacity-100 transition-opacity">👤</span>
-              </motion.button>
+                <Trophy className="w-5 h-5 group-hover:text-amber-500 transition-colors" />
+                <span>Ver Ranking</span>
+              </button>
+
+              <button
+                onClick={() => onNavigate('profile')}
+                className="btn-ghost btn-large flex items-center justify-center gap-3 group"
+              >
+                <User className="w-5 h-5 group-hover:text-blue-500 transition-colors" />
+                <span>{playerName ? 'Mi Perfil' : 'Crear Perfil'}</span>
+              </button>
             </div>
           </motion.div>
 
-          {/* Developer Info */}
+          {/* Stats Preview */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.4, duration: 0.6 }}
+            className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8"
+          >
+            <div className="stat-card">
+              <div className="stat-value text-blue-600">5</div>
+              <div className="stat-label">Categorías Disponibles</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-value text-emerald-600">25+</div>
+              <div className="stat-label">Preguntas por Categoría</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-value text-purple-600">∞</div>
+              <div className="stat-label">Diversión Garantizada</div>
+            </div>
+          </motion.div>
+
+          {/* Footer */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.5 }}
-            className="mt-12 pt-8 border-t border-white/20"
+            transition={{ delay: 1.6, duration: 0.6 }}
+            className="mt-20 pt-12 border-t border-slate-200 text-center"
           >
-            <div className="flex items-center justify-center gap-3 mb-3">
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 3, repeat: Infinity }}
-              >
-                <Gamepad2 size={20} className="text-purple-400" />
-              </motion.div>
-              <span className="text-white/70 font-medium">Desarrollado con ❤️ por</span>
-            </div>
-            <p className="font-bold text-lg text-gradient">César Eduardo González</p>
-            <p className="text-white/60 font-light">Analista en Sistemas</p>
+            <p className="text-slate-500 mb-2">Desarrollado con ❤️ por</p>
+            <p className="font-semibold text-slate-700">César Eduardo González</p>
+            <p className="text-sm text-slate-500">Analista en Sistemas</p>
           </motion.div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

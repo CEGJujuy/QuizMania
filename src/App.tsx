@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lock, Star, ArrowLeft } from 'lucide-react';
+import { Lock, Star, ArrowLeft, Users, Target, Zap } from 'lucide-react';
 
 import { MainMenu } from './components/MainMenu';
 import { GameScreen } from './components/GameScreen';
@@ -61,211 +61,134 @@ function App() {
   };
 
   const renderCategoriesScreen = () => (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Floating Background Shapes */}
-      <div className="floating-shapes">
-        <div className="floating-shape"></div>
-        <div className="floating-shape"></div>
-        <div className="floating-shape"></div>
-        <div className="floating-shape"></div>
-      </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="min-h-screen p-4 sm:p-6 lg:p-8"
-      >
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <div className="flex flex-col sm:flex-row items-center justify-between mb-8 sm:mb-12 gap-4">
-            <motion.button
-              onClick={() => handleNavigate('menu')}
-              className="btn-ghost flex items-center gap-2 self-start sm:self-center"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <ArrowLeft size={20} />
-              Volver al Menú
-            </motion.button>
-            
-            <div className="text-center flex-1">
-              <motion.h1
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-black text-gradient mb-4"
-              >
-                🎯 Elige tu Desafío
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="text-white/90 text-xl font-medium"
-              >
-                Selecciona una categoría y demuestra tu conocimiento
-              </motion.p>
-            </div>
-            
-            <div className="hidden sm:block w-32"></div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      <div className="container-custom section-padding">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row items-center justify-between mb-12 gap-6">
+          <button
+            onClick={() => handleNavigate('menu')}
+            className="btn-ghost flex items-center gap-2"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            Volver al Menú
+          </button>
+          
+          <div className="text-center flex-1">
+            <h1 className="heading-secondary mb-4">
+              <span className="text-gradient">Elige tu Categoría</span>
+            </h1>
+            <p className="text-body">Selecciona una categoría y demuestra tu conocimiento</p>
           </div>
+          
+          <div className="hidden sm:block w-32"></div>
+        </div>
 
-          {/* Player Points */}
-          {player && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="glass-card mb-10 text-center p-8 neon-glow"
-            >
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <motion.span
-                  className="text-4xl"
-                  animate={{ rotate: [0, 10, -10, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  {player.avatar}
-                </motion.span>
-                <div>
-                  <p className="font-bold text-2xl text-gradient mb-2">{player.name}</p>
-                  <div className="flex items-center justify-center gap-2">
-                    <Star className="text-yellow-400" size={20} />
-                    <p className="text-yellow-400 font-bold text-xl">{player.totalPoints} puntos totales</p>
-                    <Star className="text-yellow-400" size={20} />
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          )}
-
-          {/* Categories Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-            {categories.map((category, index) => {
-              const isUnlocked = unlockedCategories.includes(category.id);
-              
-              return (
-                <motion.div
-                  key={category.id}
-                  initial={{ opacity: 0, y: 50, rotateY: -15 }}
-                  animate={{ opacity: 1, y: 0, rotateY: 0 }}
-                  transition={{ delay: index * 0.15, type: "spring", stiffness: 100 }}
-                  className={`category-card relative ${!isUnlocked ? 'opacity-60' : ''} ${isUnlocked ? 'neon-glow' : ''}`}
-                  onClick={() => isUnlocked && handleCategorySelect(category.id)}
-                  whileHover={isUnlocked ? { scale: 1.05, rotateY: 5 } : {}}
-                  whileTap={isUnlocked ? { scale: 0.95 } : {}}
-                >
-                  {/* Lock Overlay */}
-                  {!isUnlocked && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/70 rounded-3xl backdrop-blur-sm z-10">
-                      <div className="text-center">
-                        <motion.div
-                          animate={{ scale: [1, 1.1, 1] }}
-                          transition={{ duration: 2, repeat: Infinity }}
-                        >
-                          <Lock className="text-white/70 mx-auto mb-3" size={40} />
-                        </motion.div>
-                        <p className="text-white/90 text-base font-bold">
-                          Requiere {category.requiredPoints} puntos
-                        </p>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Category Content */}
-                  <div className="text-center p-6">
-                    <motion.div
-                      className="text-7xl sm:text-8xl mb-6"
-                      animate={isUnlocked ? { 
-                        scale: [1, 1.1, 1],
-                        rotate: [0, 5, -5, 0]
-                      } : {}}
-                      transition={{ duration: 3, repeat: Infinity }}
-                    >
-                      {category.icon}
-                    </motion.div>
-                    <h3 className="text-2xl sm:text-3xl font-black mb-4 text-gradient">{category.name}</h3>
-                    <p className="text-white/90 text-base sm:text-lg mb-8 leading-relaxed font-medium">{category.description}</p>
-                    
-                    <div className={`inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r ${category.color} text-white text-base font-bold shadow-xl`}>
-                      <Star size={18} />
-                      <span>{category.requiredPoints} pts</span>
-                      <Star size={18} />
-                    </div>
-                  </div>
-
-                  {/* Unlock Animation */}
-                  {isUnlocked && (
-                    <motion.div
-                      initial={{ scale: 0, rotate: -180 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      transition={{ type: "spring", stiffness: 200, delay: index * 0.1 + 0.5 }}
-                      className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center shadow-xl neon-glow"
-                    >
-                      <motion.span
-                        className="text-white text-lg font-bold"
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                      >
-                        ✓
-                      </motion.span>
-                    </motion.div>
-                  )}
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* Progress Info */}
+        {/* Player Stats */}
+        {player && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-            className="mt-16 glass-card p-8 sm:p-10 text-center neon-glow"
+            className="card-elevated p-8 mb-12 text-center"
           >
-            <motion.h3
-              className="text-3xl sm:text-4xl font-black mb-8 text-gradient"
-              animate={{ scale: [1, 1.05, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              🎯 Tu Progreso Épico
-            </motion.h3>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-              <motion.div
-                className="stat-card"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <div className="text-3xl sm:text-4xl font-black text-green-400 mb-2">{unlockedCategories.length}</div>
-                <div className="text-sm sm:text-base text-white/90 font-semibold">Categorías Desbloqueadas</div>
-              </motion.div>
-              <motion.div
-                className="stat-card"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <div className="text-3xl sm:text-4xl font-black text-blue-400 mb-2">{categories.length - unlockedCategories.length}</div>
-                <div className="text-sm sm:text-base text-white/90 font-semibold">Por Desbloquear</div>
-              </motion.div>
-              <motion.div
-                className="stat-card"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <div className="text-3xl sm:text-4xl font-black text-yellow-400 mb-2">{player?.totalPoints || 0}</div>
-                <div className="text-sm sm:text-base text-white/90 font-semibold">Puntos Totales</div>
-              </motion.div>
-              <motion.div
-                className="stat-card"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <div className="text-3xl sm:text-4xl font-black text-purple-400 mb-2">
-                  {categories.find(c => !unlockedCategories.includes(c.id))?.requiredPoints || 'MAX'}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+              <div className="text-5xl">{player.avatar}</div>
+              <div>
+                <h3 className="text-2xl font-bold text-slate-800 mb-2">{player.name}</h3>
+                <div className="flex items-center justify-center gap-2">
+                  <Star className="w-5 h-5 text-amber-500" />
+                  <span className="text-lg font-semibold text-amber-600">
+                    {player.totalPoints.toLocaleString()} puntos
+                  </span>
                 </div>
-                <div className="text-sm sm:text-base text-white/90 font-semibold">Próximo Objetivo</div>
-              </motion.div>
+              </div>
             </div>
           </motion.div>
+        )}
+
+        {/* Categories Grid */}
+        <div className="grid-responsive mb-16">
+          {categories.map((category, index) => {
+            const isUnlocked = unlockedCategories.includes(category.id);
+            
+            return (
+              <motion.div
+                key={category.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className={`category-card relative ${!isUnlocked ? 'locked' : ''}`}
+                onClick={() => isUnlocked && handleCategorySelect(category.id)}
+              >
+                {/* Lock Overlay */}
+                {!isUnlocked && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-white/90 rounded-2xl backdrop-blur-sm z-10">
+                    <div className="text-center">
+                      <Lock className="w-12 h-12 text-slate-400 mx-auto mb-4" />
+                      <p className="text-slate-600 font-semibold">
+                        Requiere {category.requiredPoints} puntos
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Category Content */}
+                <div className="text-center">
+                  <div className="text-6xl mb-6">{category.icon}</div>
+                  <h3 className="text-2xl font-bold text-slate-800 mb-4">{category.name}</h3>
+                  <p className="text-body mb-6">{category.description}</p>
+                  
+                  <div className="flex items-center justify-center gap-2">
+                    <div className={`badge ${isUnlocked ? 'badge-success' : 'badge-primary'}`}>
+                      {category.requiredPoints} pts requeridos
+                    </div>
+                  </div>
+                </div>
+
+                {/* Unlock Indicator */}
+                {isUnlocked && (
+                  <div className="absolute -top-3 -right-3 w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg">
+                    <span className="text-white text-sm font-bold">✓</span>
+                  </div>
+                )}
+              </motion.div>
+            );
+          })}
         </div>
-      </motion.div>
+
+        {/* Progress Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="card-elevated p-8"
+        >
+          <h3 className="text-2xl font-bold text-slate-800 mb-8 text-center">Tu Progreso</h3>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="stat-card border-0 shadow-none">
+              <Users className="w-8 h-8 text-emerald-500 mx-auto mb-3" />
+              <div className="stat-value text-emerald-600">{unlockedCategories.length}</div>
+              <div className="stat-label">Categorías Desbloqueadas</div>
+            </div>
+            <div className="stat-card border-0 shadow-none">
+              <Target className="w-8 h-8 text-blue-500 mx-auto mb-3" />
+              <div className="stat-value text-blue-600">{categories.length - unlockedCategories.length}</div>
+              <div className="stat-label">Por Desbloquear</div>
+            </div>
+            <div className="stat-card border-0 shadow-none">
+              <Star className="w-8 h-8 text-amber-500 mx-auto mb-3" />
+              <div className="stat-value text-amber-600">{player?.totalPoints || 0}</div>
+              <div className="stat-label">Puntos Totales</div>
+            </div>
+            <div className="stat-card border-0 shadow-none">
+              <Zap className="w-8 h-8 text-purple-500 mx-auto mb-3" />
+              <div className="stat-value text-purple-600">
+                {categories.find(c => !unlockedCategories.includes(c.id))?.requiredPoints || 'MAX'}
+              </div>
+              <div className="stat-label">Próximo Objetivo</div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
     </div>
   );
 

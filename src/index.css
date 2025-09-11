@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap');
 
 @layer base {
   * {
@@ -10,9 +10,11 @@
   }
   
   body {
-    @apply bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white min-h-screen overflow-x-hidden;
-    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    @apply bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 text-slate-800 min-h-screen overflow-x-hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
   html {
@@ -21,27 +23,58 @@
 
   /* Custom scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
   
   ::-webkit-scrollbar-track {
-    @apply bg-white/10;
+    @apply bg-slate-100;
   }
   
   ::-webkit-scrollbar-thumb {
-    @apply bg-gradient-to-b from-purple-500 to-pink-500 rounded-full;
+    @apply bg-slate-300 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400;
   }
 }
 
 @layer components {
-  .game-card {
-    @apply bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl p-6 shadow-2xl hover:shadow-purple-500/25 transition-all duration-500 hover:bg-white/15 hover:border-white/30;
+  /* Cards */
+  .card {
+    @apply bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300;
   }
   
+  .card-elevated {
+    @apply bg-white border border-slate-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300;
+  }
+  
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-sm border border-white/20 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300;
+  }
+
+  /* Typography */
+  .text-gradient {
+    @apply bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent font-bold;
+  }
+  
+  .heading-primary {
+    font-family: 'Poppins', sans-serif;
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800 leading-tight;
+  }
+  
+  .heading-secondary {
+    font-family: 'Poppins', sans-serif;
+    @apply text-2xl md:text-3xl lg:text-4xl font-semibold text-slate-700 leading-tight;
+  }
+  
+  .text-body {
+    @apply text-slate-600 text-base md:text-lg leading-relaxed;
+  }
+
+  /* Buttons */
   .btn-primary {
-    @apply relative overflow-hidden bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 text-white font-bold py-5 px-10 rounded-2xl transition-all duration-500 transform hover:scale-105 shadow-2xl hover:shadow-purple-500/60 active:scale-95 border-2 border-white/30 hover:border-white/50;
-    background-size: 200% 200%;
-    animation: gradient-shift 3s ease infinite;
+    @apply relative overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-200 active:scale-95;
   }
   
   .btn-primary::before {
@@ -51,277 +84,194 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    transition: left 0.6s;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
   }
   
   .btn-primary:hover::before {
     left: 100%;
   }
   
-  .btn-primary::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    padding: 2px;
-    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57);
-    border-radius: inherit;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  
-  .btn-primary:hover::after {
-    opacity: 1;
-    animation: border-glow 2s linear infinite;
-  }
-  
   .btn-secondary {
-    @apply relative overflow-hidden bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 text-white font-bold py-4 px-8 rounded-2xl transition-all duration-500 transform hover:scale-105 shadow-2xl hover:shadow-blue-500/60 active:scale-95 border-2 border-cyan-400/40 hover:border-cyan-300/60;
-    background-size: 200% 200%;
-    animation: gradient-shift 4s ease infinite reverse;
-  }
-  
-  .btn-secondary::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-    transition: all 0.6s ease;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-  }
-  
-  .btn-secondary:hover::before {
-    width: 300px;
-    height: 300px;
+    @apply relative overflow-hidden bg-white border-2 border-slate-200 hover:border-blue-300 text-slate-700 hover:text-blue-600 font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-slate-200 active:scale-95;
   }
   
   .btn-success {
-    @apply relative overflow-hidden bg-gradient-to-r from-emerald-500 via-green-600 to-teal-600 hover:from-emerald-400 hover:via-green-500 hover:to-teal-500 text-white font-bold py-4 px-8 rounded-2xl transition-all duration-500 transform hover:scale-105 shadow-2xl hover:shadow-green-500/60 active:scale-95 border-2 border-emerald-400/40 hover:border-emerald-300/60;
-    background-size: 200% 200%;
-    animation: gradient-shift 3.5s ease infinite;
-  }
-  
-  .btn-success::after {
-    content: '✨';
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    font-size: 20px;
-    opacity: 0;
-    transform: scale(0) rotate(-180deg);
-    transition: all 0.4s ease;
-  }
-  
-  .btn-success:hover::after {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
+    @apply relative overflow-hidden bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-emerald-200 active:scale-95;
   }
   
   .btn-danger {
-    @apply relative overflow-hidden bg-gradient-to-r from-red-500 via-pink-600 to-rose-600 hover:from-red-400 hover:via-pink-500 hover:to-rose-500 text-white font-bold py-4 px-8 rounded-2xl transition-all duration-500 transform hover:scale-105 shadow-2xl hover:shadow-red-500/60 active:scale-95 border-2 border-red-400/40 hover:border-red-300/60;
-    background-size: 200% 200%;
-    animation: gradient-shift 2.5s ease infinite;
-  }
-  
-  .btn-danger::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
-    transform: translateX(-100%) skewX(-25deg);
-    transition: transform 0.8s;
-  }
-  
-  .btn-danger:hover::before {
-    transform: translateX(100%) skewX(-25deg);
-  }
-  
-  .category-card {
-    @apply game-card hover:bg-gradient-to-br hover:from-white/20 hover:to-white/10 transition-all duration-500 cursor-pointer transform hover:scale-105 hover:shadow-2xl hover:-translate-y-3 hover:rotate-1 group;
-  }
-  
-  .question-option {
-    @apply bg-gradient-to-r from-white/10 to-white/5 hover:from-white/20 hover:to-white/15 border border-white/30 rounded-2xl p-6 transition-all duration-300 cursor-pointer transform hover:scale-102 hover:shadow-xl backdrop-blur-xl;
-  }
-  
-  .question-option.selected {
-    @apply bg-gradient-to-r from-blue-500/40 to-purple-500/40 border-blue-400 shadow-xl shadow-blue-500/30 scale-102;
-  }
-  
-  .question-option.correct {
-    @apply bg-gradient-to-r from-green-500/40 to-emerald-500/40 border-green-400 shadow-xl shadow-green-500/30 scale-102;
-  }
-  
-  .question-option.incorrect {
-    @apply bg-gradient-to-r from-red-500/40 to-pink-500/40 border-red-400 shadow-xl shadow-red-500/30 scale-102;
-  }
-  
-  .glass-card {
-    @apply bg-white/10 backdrop-blur-3xl border border-white/20 rounded-3xl shadow-2xl hover:bg-white/15 transition-all duration-300;
-  }
-  
-  .text-gradient {
-    @apply bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent font-bold;
+    @apply relative overflow-hidden bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-red-200 active:scale-95;
   }
   
   .btn-ghost {
-    @apply relative overflow-hidden bg-white/10 hover:bg-white/20 text-white font-semibold py-3 px-6 rounded-2xl transition-all duration-500 border-2 border-white/30 hover:border-white/60 backdrop-blur-xl hover:shadow-2xl hover:shadow-white/20 transform hover:scale-105 active:scale-95;
+    @apply relative overflow-hidden bg-transparent hover:bg-slate-50 text-slate-600 hover:text-slate-800 font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-slate-200 active:scale-95;
   }
   
-  .btn-ghost::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.6s;
+  .btn-large {
+    @apply py-5 px-10 text-lg md:text-xl;
   }
   
-  .btn-ghost:hover::before {
-    transform: translateX(100%);
+  .btn-small {
+    @apply py-2 px-4 text-sm;
+  }
+
+  /* Category Cards */
+  .category-card {
+    @apply card p-8 cursor-pointer transform hover:scale-105 hover:-translate-y-2 transition-all duration-300 group;
   }
   
-  /* Botón especial para acciones importantes */
-  .btn-special {
-    @apply relative overflow-hidden bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 hover:from-yellow-300 hover:via-orange-400 hover:to-red-400 text-white font-black py-6 px-12 rounded-3xl transition-all duration-500 transform hover:scale-110 shadow-2xl hover:shadow-orange-500/70 active:scale-95 border-2 border-yellow-300/50 hover:border-yellow-200/70;
-    background-size: 300% 300%;
-    animation: gradient-shift 2s ease infinite, pulse-glow 3s ease-in-out infinite alternate;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  .category-card.locked {
+    @apply opacity-60 cursor-not-allowed;
   }
   
-  .btn-special::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.3), transparent);
-    animation: rotate 3s linear infinite;
-    opacity: 0;
-    transition: opacity 0.3s;
+  .category-card.locked:hover {
+    @apply scale-100 translate-y-0;
+  }
+
+  /* Question Options */
+  .question-option {
+    @apply card p-6 cursor-pointer transition-all duration-300 hover:border-blue-300 hover:shadow-md;
   }
   
-  .btn-special:hover::before {
-    opacity: 1;
+  .question-option.selected {
+    @apply border-blue-500 bg-blue-50 shadow-md;
   }
   
-  .btn-special::after {
-    content: '🚀';
-    position: absolute;
-    top: -15px;
-    right: -15px;
-    font-size: 24px;
-    animation: bounce 2s infinite;
+  .question-option.correct {
+    @apply border-emerald-500 bg-emerald-50 shadow-md;
   }
   
+  .question-option.incorrect {
+    @apply border-red-500 bg-red-50 shadow-md;
+  }
+
+  /* Stats */
   .stat-card {
-    @apply glass-card p-6 text-center hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-xl;
+    @apply card p-6 text-center hover:shadow-md transition-all duration-300;
+  }
+  
+  .stat-value {
+    @apply text-3xl md:text-4xl font-bold text-slate-800 mb-2;
+  }
+  
+  .stat-label {
+    @apply text-sm md:text-base text-slate-600 font-medium;
   }
 
-  .floating-shapes {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
+  /* Progress */
+  .progress-bar {
+    @apply w-full bg-slate-200 rounded-full h-3 overflow-hidden;
+  }
+  
+  .progress-fill {
+    @apply bg-gradient-to-r from-blue-500 to-indigo-500 h-full rounded-full transition-all duration-500 ease-out;
   }
 
-  .floating-shape {
-    position: absolute;
-    border-radius: 50%;
-    background: linear-gradient(45deg, rgba(139, 92, 246, 0.3), rgba(219, 39, 119, 0.3));
-    animation: float 6s ease-in-out infinite;
+  /* Badges */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+  
+  .badge-primary {
+    @apply bg-blue-100 text-blue-800;
+  }
+  
+  .badge-success {
+    @apply bg-emerald-100 text-emerald-800;
+  }
+  
+  .badge-warning {
+    @apply bg-amber-100 text-amber-800;
+  }
+  
+  .badge-danger {
+    @apply bg-red-100 text-red-800;
   }
 
-  .floating-shape:nth-child(1) {
-    width: 80px;
-    height: 80px;
-    top: 10%;
-    left: 10%;
-    animation-delay: 0s;
+  /* Animations */
+  .fade-in {
+    animation: fadeIn 0.5s ease-out;
   }
-
-  .floating-shape:nth-child(2) {
-    width: 120px;
-    height: 120px;
-    top: 20%;
-    right: 10%;
-    animation-delay: 2s;
+  
+  .slide-up {
+    animation: slideUp 0.5s ease-out;
   }
-
-  .floating-shape:nth-child(3) {
-    width: 60px;
-    height: 60px;
-    bottom: 20%;
-    left: 20%;
-    animation-delay: 4s;
+  
+  .scale-in {
+    animation: scaleIn 0.3s ease-out;
   }
-
-  .floating-shape:nth-child(4) {
-    width: 100px;
-    height: 100px;
-    bottom: 10%;
-    right: 20%;
-    animation-delay: 1s;
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
-
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px) rotate(0deg);
+  
+  @keyframes slideUp {
+    from { 
+      opacity: 0; 
+      transform: translateY(20px); 
     }
-    50% {
-      transform: translateY(-20px) rotate(180deg);
-    }
-  }
-
-  .neon-glow {
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(219, 39, 119, 0.3);
-  }
-
-  .pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite alternate;
-  }
-
-  @keyframes pulse-glow {
-    from {
-      box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-    }
-    to {
-      box-shadow: 0 0 30px rgba(139, 92, 246, 0.8), 0 0 60px rgba(219, 39, 119, 0.5);
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
     }
   }
   
-  @keyframes gradient-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+  @keyframes scaleIn {
+    from { 
+      opacity: 0; 
+      transform: scale(0.95); 
+    }
+    to { 
+      opacity: 1; 
+      transform: scale(1); 
+    }
+  }
+
+  /* Utilities */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
   
-  @keyframes border-glow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+  .section-padding {
+    @apply py-12 md:py-16 lg:py-20;
   }
   
-  @keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
-  @keyframes shimmer {
-    0% { transform: translateX(-100%) skewX(-15deg); }
-    100% { transform: translateX(100%) skewX(-15deg); }
+  .backdrop-blur-custom {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* Responsive helpers */
+  .grid-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8;
+  }
+  
+  .flex-responsive {
+    @apply flex flex-col sm:flex-row items-center gap-4 sm:gap-6;
+  }
+
+  /* Focus states */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-4 focus:ring-blue-200 focus:ring-opacity-50;
+  }
+
+  /* Loading states */
+  .loading-spinner {
+    @apply animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600;
+  }
+
+  /* Hover effects */
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1;
+  }
+  
+  .hover-glow {
+    @apply transition-shadow duration-300 hover:shadow-lg;
   }
 }
