@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { User, Save, ArrowLeft, Trophy, Target, Zap, Calendar } from 'lucide-react';
+import { User, Save, ArrowLeft, Trophy, Target, Zap, Calendar, Edit3 } from 'lucide-react';
 import { Player } from '../types';
 
 interface PlayerProfileProps {
@@ -38,20 +38,20 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <div className="container-custom section-padding">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row items-center justify-between mb-12 gap-4">
+        <div className="flex items-center justify-between mb-12">
           <button
             onClick={() => onNavigate('menu')}
-            className="btn-ghost flex items-center gap-2"
+            className="btn btn-ghost btn-md flex items-center gap-2"
           >
-            <ArrowLeft className="w-5 h-5" />
-            Volver al Menú
+            <ArrowLeft className="w-4 h-4" />
+            Volver
           </button>
           
           <h1 className="heading-secondary">
-            <span className="text-gradient">{player ? 'Mi Perfil' : 'Crear Perfil'}</span>
+            {player ? 'Mi Perfil' : 'Crear Perfil'}
           </h1>
           
-          <div className="hidden sm:block w-32"></div>
+          <div className="w-20"></div>
         </div>
 
         <div className="max-w-2xl mx-auto space-y-8">
@@ -71,12 +71,12 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Ingresa tu nombre"
-                    className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-500 focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-400 text-lg transition-all duration-300"
+                    className="input text-lg"
                     maxLength={20}
                   />
                   
                   <div>
-                    <h3 className="text-2xl font-bold mb-6 text-slate-800">Elige tu Avatar</h3>
+                    <h3 className="heading-tertiary mb-6">Elige tu Avatar</h3>
                     <div className="grid grid-cols-5 sm:grid-cols-6 lg:grid-cols-7 gap-3">
                       {avatars.map((avatar, index) => (
                         <button
@@ -98,7 +98,7 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
                     <button
                       onClick={handleSave}
                       disabled={!name.trim()}
-                      className="btn-primary flex-1 flex items-center justify-center gap-3 btn-large"
+                      className="btn btn-primary btn-lg flex-1 flex items-center justify-center gap-3"
                     >
                       <Save className="w-5 h-5" />
                       <span>Guardar Perfil</span>
@@ -106,7 +106,7 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
                     {player && (
                       <button
                         onClick={() => setIsEditing(false)}
-                        className="btn-ghost flex-1 btn-large"
+                        className="btn btn-ghost btn-lg flex-1"
                       >
                         Cancelar
                       </button>
@@ -118,9 +118,9 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
                   <h2 className="text-4xl font-bold mb-4 text-slate-800">{player?.name}</h2>
                   <button
                     onClick={() => setIsEditing(true)}
-                    className="btn-secondary flex items-center gap-3 btn-large"
+                    className="btn btn-secondary btn-lg flex items-center gap-3"
                   >
-                    <User className="w-5 h-5" />
+                    <Edit3 className="w-5 h-5" />
                     <span>Editar Perfil</span>
                   </button>
                 </div>
@@ -145,7 +145,7 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
               <div className="stat-card">
                 <Target className="text-blue-500 mx-auto mb-3" size={28} />
                 <div className="stat-value text-blue-600">{player.gamesPlayed}</div>
-                <div className="stat-label">Partidas Jugadas</div>
+                <div className="stat-label">Partidas</div>
               </div>
               
               <div className="stat-card">
@@ -172,7 +172,7 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
               transition={{ delay: 0.4 }}
               className="card-elevated p-8"
             >
-              <h3 className="text-2xl font-bold mb-6 text-slate-800">🏆 Logros</h3>
+              <h3 className="heading-tertiary mb-6">🏆 Logros</h3>
               
               {player.achievements.length === 0 ? (
                 <div className="text-center py-12">
@@ -182,7 +182,7 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
                   </p>
                   <button
                     onClick={() => onNavigate('categories')}
-                    className="btn-primary flex items-center gap-2 mx-auto"
+                    className="btn btn-primary btn-lg flex items-center gap-2 mx-auto"
                   >
                     <span>Comenzar a Jugar</span>
                   </button>

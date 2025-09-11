@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Clock, Heart, Zap, ArrowLeft } from 'lucide-react';
+import { Clock, Heart, Zap, ArrowLeft, CheckCircle, XCircle } from 'lucide-react';
 import { useGameLogic } from '../hooks/useGameLogic';
 import { Player, LeaderboardEntry, GameSession } from '../types';
 import { categories } from '../data/questions';
@@ -39,7 +39,7 @@ export function GameScreen({
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
           <div className="loading-spinner mx-auto mb-4"></div>
-          <p className="text-slate-600">Cargando pregunta...</p>
+          <p className="text-body">Cargando pregunta...</p>
         </div>
       </div>
     );
@@ -51,27 +51,28 @@ export function GameScreen({
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <div className="container-custom section-padding">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">
+        <div className="flex items-center justify-between mb-8">
           <button
             onClick={() => onNavigate('categories')}
-            className="btn-ghost flex items-center gap-2"
+            className="btn btn-ghost btn-md flex items-center gap-2"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft className="w-4 h-4" />
             Volver
           </button>
           
-          <div className={`px-6 py-3 rounded-full bg-gradient-to-r ${category.color} text-white font-semibold shadow-lg text-lg`}>
-            {category.icon} {category.name}
+          <div className={`px-6 py-3 rounded-full bg-gradient-to-r ${category.color} text-white font-semibold shadow-lg`}>
+            <span className="text-lg">{category.icon}</span>
+            <span className="ml-2">{category.name}</span>
           </div>
           
-          <div className="hidden sm:block w-24"></div>
+          <div className="w-20"></div>
         </div>
 
         {/* Progress Bar */}
         <div className="mb-8">
           <div className="flex justify-between text-slate-600 mb-3 font-medium">
             <span>Pregunta {session.currentQuestionIndex + 1} de {categoryQuestions.length}</span>
-            <span>Progreso: {Math.round(progress)}%</span>
+            <span>{Math.round(progress)}% completado</span>
           </div>
           <div className="progress-bar">
             <motion.div
@@ -137,7 +138,7 @@ export function GameScreen({
             <span className="text-blue-600 font-bold text-lg">+{currentQuestion.points} pts</span>
           </div>
           
-          <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-slate-800 leading-relaxed">
+          <h2 className="heading-secondary mb-8 leading-relaxed">
             {currentQuestion.question}
           </h2>
 
@@ -170,12 +171,12 @@ export function GameScreen({
                       <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-700 flex-shrink-0">
                         {String.fromCharCode(65 + index)}
                       </div>
-                      <span className="flex-1 text-left text-slate-700">{option}</span>
+                      <span className="flex-1 text-left text-slate-700 font-medium">{option}</span>
                       {showResult && index === currentQuestion.correctAnswer && (
-                        <div className="text-emerald-500 text-xl">✓</div>
+                        <CheckCircle className="text-emerald-500" size={24} />
                       )}
                       {showResult && index === selectedAnswer && index !== currentQuestion.correctAnswer && (
-                        <div className="text-red-500 text-xl">✗</div>
+                        <XCircle className="text-red-500" size={24} />
                       )}
                     </div>
                   </motion.button>
@@ -188,7 +189,7 @@ export function GameScreen({
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-6 p-5 rounded-2xl bg-slate-50 border border-slate-200"
+              className="mt-6 p-6 rounded-xl bg-slate-50 border border-slate-200"
             >
               {selectedAnswer === currentQuestion.correctAnswer ? (
                 <div className="text-emerald-600 font-bold text-lg">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lock, Star, ArrowLeft, Users, Target, Zap } from 'lucide-react';
+import { Lock, Star, ArrowLeft, Users, Target, Zap, ChevronRight } from 'lucide-react';
 
 import { MainMenu } from './components/MainMenu';
 import { GameScreen } from './components/GameScreen';
@@ -64,23 +64,21 @@ function App() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <div className="container-custom section-padding">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row items-center justify-between mb-12 gap-6">
+        <div className="flex items-center justify-between mb-12">
           <button
             onClick={() => handleNavigate('menu')}
-            className="btn-ghost flex items-center gap-2"
+            className="btn btn-ghost btn-md flex items-center gap-2"
           >
-            <ArrowLeft className="w-5 h-5" />
-            Volver al Menú
+            <ArrowLeft className="w-4 h-4" />
+            Volver
           </button>
           
-          <div className="text-center flex-1">
-            <h1 className="heading-secondary mb-4">
-              <span className="text-gradient">Elige tu Categoría</span>
-            </h1>
+          <div className="text-center flex-1 mx-8">
+            <h1 className="heading-secondary mb-2">Elige tu Categoría</h1>
             <p className="text-body">Selecciona una categoría y demuestra tu conocimiento</p>
           </div>
           
-          <div className="hidden sm:block w-32"></div>
+          <div className="w-20"></div>
         </div>
 
         {/* Player Stats */}
@@ -88,13 +86,13 @@ function App() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="card-elevated p-8 mb-12 text-center"
+            className="card-elevated p-8 mb-12"
           >
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <div className="text-5xl">{player.avatar}</div>
-              <div>
-                <h3 className="text-2xl font-bold text-slate-800 mb-2">{player.name}</h3>
-                <div className="flex items-center justify-center gap-2">
+              <div className="text-center sm:text-left">
+                <h3 className="heading-tertiary mb-2">{player.name}</h3>
+                <div className="flex items-center justify-center sm:justify-start gap-2">
                   <Star className="w-5 h-5 text-amber-500" />
                   <span className="text-lg font-semibold text-amber-600">
                     {player.totalPoints.toLocaleString()} puntos
@@ -116,12 +114,12 @@ function App() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className={`category-card relative ${!isUnlocked ? 'locked' : ''}`}
+                className={`category-card ${!isUnlocked ? 'locked' : ''}`}
                 onClick={() => isUnlocked && handleCategorySelect(category.id)}
               >
                 {/* Lock Overlay */}
                 {!isUnlocked && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-white/90 rounded-2xl backdrop-blur-sm z-10">
+                  <div className="absolute inset-0 flex items-center justify-center bg-white/95 rounded-xl backdrop-blur-sm z-10">
                     <div className="text-center">
                       <Lock className="w-12 h-12 text-slate-400 mx-auto mb-4" />
                       <p className="text-slate-600 font-semibold">
@@ -134,20 +132,27 @@ function App() {
                 {/* Category Content */}
                 <div className="text-center">
                   <div className="text-6xl mb-6">{category.icon}</div>
-                  <h3 className="text-2xl font-bold text-slate-800 mb-4">{category.name}</h3>
+                  <h3 className="heading-tertiary mb-4">{category.name}</h3>
                   <p className="text-body mb-6">{category.description}</p>
                   
                   <div className="flex items-center justify-center gap-2">
-                    <div className={`badge ${isUnlocked ? 'badge-success' : 'badge-primary'}`}>
+                    <div className={`badge ${isUnlocked ? 'badge-success' : 'badge-gray'}`}>
                       {category.requiredPoints} pts requeridos
                     </div>
                   </div>
+
+                  {isUnlocked && (
+                    <div className="mt-4 flex items-center justify-center text-blue-600 font-medium">
+                      <span>Jugar ahora</span>
+                      <ChevronRight className="w-4 h-4 ml-1" />
+                    </div>
+                  )}
                 </div>
 
                 {/* Unlock Indicator */}
                 {isUnlocked && (
-                  <div className="absolute -top-3 -right-3 w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg">
-                    <span className="text-white text-sm font-bold">✓</span>
+                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg">
+                    <span className="text-white text-xs font-bold">✓</span>
                   </div>
                 )}
               </motion.div>
@@ -162,12 +167,12 @@ function App() {
           transition={{ delay: 0.6 }}
           className="card-elevated p-8"
         >
-          <h3 className="text-2xl font-bold text-slate-800 mb-8 text-center">Tu Progreso</h3>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          <h3 className="heading-tertiary mb-8 text-center">Tu Progreso</h3>
+          <div className="grid-responsive-4">
             <div className="stat-card border-0 shadow-none">
               <Users className="w-8 h-8 text-emerald-500 mx-auto mb-3" />
               <div className="stat-value text-emerald-600">{unlockedCategories.length}</div>
-              <div className="stat-label">Categorías Desbloqueadas</div>
+              <div className="stat-label">Desbloqueadas</div>
             </div>
             <div className="stat-card border-0 shadow-none">
               <Target className="w-8 h-8 text-blue-500 mx-auto mb-3" />

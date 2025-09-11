@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Trophy, Medal, Award, ArrowLeft, Calendar, Zap } from 'lucide-react';
+import { Trophy, Medal, Award, ArrowLeft, Calendar, Zap, Crown } from 'lucide-react';
 import { LeaderboardEntry } from '../types';
 import { categories } from '../data/questions';
 
@@ -16,9 +16,9 @@ export function Leaderboard({ leaderboard, onNavigate }: LeaderboardProps) {
 
   const getRankIcon = (index: number) => {
     switch (index) {
-      case 0: return <Trophy className="text-amber-500" size={24} />;
-      case 1: return <Medal className="text-slate-400" size={24} />;
-      case 2: return <Award className="text-amber-600" size={24} />;
+      case 0: return <Crown className="text-amber-500" size={24} />;
+      case 1: return <Trophy className="text-slate-400" size={24} />;
+      case 2: return <Medal className="text-amber-600" size={24} />;
       default: return <div className="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center text-sm font-bold text-slate-600">{index + 1}</div>;
     }
   };
@@ -31,23 +31,21 @@ export function Leaderboard({ leaderboard, onNavigate }: LeaderboardProps) {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <div className="container-custom section-padding">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row items-center justify-between mb-12 gap-4">
+        <div className="flex items-center justify-between mb-12">
           <button
             onClick={() => onNavigate('menu')}
-            className="btn-ghost flex items-center gap-2"
+            className="btn btn-ghost btn-md flex items-center gap-2"
           >
-            <ArrowLeft className="w-5 h-5" />
-            Volver al Menú
+            <ArrowLeft className="w-4 h-4" />
+            Volver
           </button>
           
-          <div className="text-center flex-1">
-            <h1 className="heading-secondary mb-4">
-              <span className="text-gradient">🏆 Ranking Global</span>
-            </h1>
+          <div className="text-center flex-1 mx-8">
+            <h1 className="heading-secondary mb-2">🏆 Ranking Global</h1>
             <p className="text-body">Top 10 mejores puntajes</p>
           </div>
           
-          <div className="hidden sm:block w-32"></div>
+          <div className="w-20"></div>
         </div>
 
         {sortedLeaderboard.length === 0 ? (
@@ -57,19 +55,19 @@ export function Leaderboard({ leaderboard, onNavigate }: LeaderboardProps) {
             className="card-elevated text-center py-16 px-8"
           >
             <div className="text-8xl mb-6">🎯</div>
-            <h2 className="text-3xl font-bold mb-6 text-gradient">¡Sé el primero!</h2>
+            <h2 className="heading-secondary mb-6 text-gradient">¡Sé el primero!</h2>
             <p className="text-body mb-8 max-w-md mx-auto">
               Aún no hay puntajes registrados. ¡Juega una partida y establece el primer récord!
             </p>
             <button
               onClick={() => onNavigate('categories')}
-              className="btn-primary btn-large"
+              className="btn btn-primary btn-lg"
             >
               Comenzar a Jugar
             </button>
           </motion.div>
         ) : (
-          <div className="space-y-6">
+          <div className="space-y-4">
             {sortedLeaderboard.map((entry, index) => {
               const category = getCategoryInfo(entry.category);
               const isTopThree = index < 3;
@@ -80,7 +78,7 @@ export function Leaderboard({ leaderboard, onNavigate }: LeaderboardProps) {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className={`card-elevated p-6 ${isTopThree ? 'ring-2 ring-amber-200' : ''}`}
+                  className={`card-elevated p-6 relative ${isTopThree ? 'ring-2 ring-amber-200 bg-gradient-to-r from-amber-50 to-yellow-50' : ''}`}
                 >
                   <div className="flex items-center gap-6">
                     {/* Rank */}
@@ -127,7 +125,7 @@ export function Leaderboard({ leaderboard, onNavigate }: LeaderboardProps) {
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ delay: 0.5 + index * 0.1 }}
-                      className="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full flex items-center justify-center text-sm font-bold text-white shadow-lg"
+                      className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full flex items-center justify-center text-sm font-bold text-white shadow-lg"
                     >
                       {index + 1}
                     </motion.div>

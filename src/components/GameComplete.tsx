@@ -33,141 +33,139 @@ export function GameComplete({ session, onNavigate, onPlayAgain }: GameCompleteP
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8"
-    >
-      <div className="glass-card max-w-lg w-full text-center p-8 sm:p-10">
-        {/* Result Icon */}
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-          className="text-7xl sm:text-8xl mb-6"
-        >
-          {isSuccess ? '🎉' : '😔'}
-        </motion.div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+      <div className="container-custom">
+        <div className="card-elevated max-w-lg mx-auto text-center p-10">
+          {/* Result Icon */}
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+            className="text-8xl mb-6"
+          >
+            {isSuccess ? '🎉' : '😔'}
+          </motion.div>
 
-        {/* Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="text-3xl sm:text-4xl font-bold mb-4 text-gradient"
-        >
-          {isSuccess ? '¡Felicitaciones!' : '¡Inténtalo de nuevo!'}
-        </motion.h1>
+          {/* Title */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="heading-secondary mb-4"
+          >
+            {isSuccess ? '¡Felicitaciones!' : '¡Inténtalo de nuevo!'}
+          </motion.h1>
 
-        {/* Performance Message */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="text-white/80 mb-8 text-lg font-light"
-        >
-          {getPerformanceMessage()}
-        </motion.p>
+          {/* Performance Message */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-body mb-8"
+          >
+            {getPerformanceMessage()}
+          </motion.p>
 
-        {/* Category */}
-        {category && (
+          {/* Category */}
+          {category && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className={`inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r ${category.color} text-white font-semibold mb-8 shadow-lg text-lg`}
+            >
+              <span className="text-xl">{category.icon}</span>
+              <span>{category.name}</span>
+            </motion.div>
+          )}
+
+          {/* Stats */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className={`inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r ${category.color} text-white font-semibold mb-8 shadow-lg text-lg`}
+            transition={{ delay: 0.6 }}
+            className="grid grid-cols-2 gap-6 mb-10"
           >
-            <span className="text-xl">{category.icon}</span>
-            <span>{category.name}</span>
-          </motion.div>
-        )}
-
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="grid grid-cols-2 gap-4 sm:gap-6 mb-10"
-        >
-          <div className="stat-card">
-            <Trophy className="text-yellow-400 mx-auto mb-3" size={28} />
-            <div className="text-2xl sm:text-3xl font-bold text-yellow-400 mb-1">{session.score}</div>
-            <div className="text-sm text-white/80 font-medium">Puntos</div>
-          </div>
-          
-          <div className="stat-card">
-            <Target className="text-blue-400 mx-auto mb-3" size={28} />
-            <div className="text-2xl sm:text-3xl font-bold text-blue-400 mb-1">{accuracy}%</div>
-            <div className="text-sm text-white/80 font-medium">Precisión</div>
-          </div>
-          
-          <div className="stat-card">
-            <Zap className="text-orange-400 mx-auto mb-3" size={28} />
-            <div className="text-2xl sm:text-3xl font-bold text-orange-400 mb-1">{session.streak}</div>
-            <div className="text-sm text-white/80 font-medium">Mejor Racha</div>
-          </div>
-          
-          <div className="stat-card">
-            <Clock className="text-green-400 mx-auto mb-3" size={28} />
-            <div className="text-2xl sm:text-3xl font-bold text-green-400 mb-1">
-              {Math.floor((Date.now() - session.startTime.getTime()) / 1000)}s
+            <div className="stat-card border-0 shadow-none">
+              <Trophy className="text-amber-500 mx-auto mb-3" size={28} />
+              <div className="stat-value text-amber-600">{session.score}</div>
+              <div className="stat-label">Puntos</div>
             </div>
-            <div className="text-sm text-white/80 font-medium">Tiempo Total</div>
-          </div>
-        </motion.div>
+            
+            <div className="stat-card border-0 shadow-none">
+              <Target className="text-blue-500 mx-auto mb-3" size={28} />
+              <div className="stat-value text-blue-600">{accuracy}%</div>
+              <div className="stat-label">Precisión</div>
+            </div>
+            
+            <div className="stat-card border-0 shadow-none">
+              <Zap className="text-orange-500 mx-auto mb-3" size={28} />
+              <div className="stat-value text-orange-600">{session.streak}</div>
+              <div className="stat-label">Mejor Racha</div>
+            </div>
+            
+            <div className="stat-card border-0 shadow-none">
+              <Clock className="text-emerald-500 mx-auto mb-3" size={28} />
+              <div className="stat-value text-emerald-600">
+                {Math.floor((Date.now() - session.startTime.getTime()) / 1000)}s
+              </div>
+              <div className="stat-label">Tiempo Total</div>
+            </div>
+          </motion.div>
 
-        {/* Actions */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-          className="space-y-4"
-        >
-          <button
-            onClick={onPlayAgain}
-            className="btn-special w-full flex items-center justify-center gap-4 text-xl py-6"
+          {/* Actions */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="space-y-4"
           >
-            <RotateCcw size={20} />
-            <span className="font-black tracking-wider">JUGAR DE NUEVO</span>
-          </button>
-
-          <div className="grid grid-cols-2 gap-4">
             <button
-              onClick={() => onNavigate('categories')}
-              className="btn-secondary flex items-center justify-center gap-3 text-base py-4"
+              onClick={onPlayAgain}
+              className="btn btn-primary btn-xl w-full flex items-center justify-center gap-3"
             >
-              <Target size={18} />
-              <span className="font-bold tracking-wide">Categorías</span>
+              <RotateCcw size={20} />
+              <span className="font-bold">Jugar de Nuevo</span>
             </button>
 
-            <button
-              onClick={() => onNavigate('leaderboard')}
-              className="btn-success flex items-center justify-center gap-3 text-base py-4"
-            >
-              <Trophy size={18} />
-              <span className="font-bold tracking-wide">Ranking</span>
-            </button>
-          </div>
+            <div className="grid grid-cols-2 gap-4">
+              <button
+                onClick={() => onNavigate('categories')}
+                className="btn btn-secondary btn-lg flex items-center justify-center gap-2"
+              >
+                <Target size={18} />
+                <span>Categorías</span>
+              </button>
 
-          <button
-            onClick={() => onNavigate('menu')}
-            className="btn-ghost w-full flex items-center justify-center gap-3 py-4"
-          >
-            <Home size={18} />
-            <span className="font-bold tracking-wide">Menú Principal</span>
-          </button>
+              <button
+                onClick={() => onNavigate('leaderboard')}
+                className="btn btn-success btn-lg flex items-center justify-center gap-2"
+              >
+                <Trophy size={18} />
+                <span>Ranking</span>
+              </button>
+            </div>
 
-          {navigator.share && (
             <button
-              onClick={shareScore}
-              className="btn-ghost w-full flex items-center justify-center gap-3 py-4"
+              onClick={() => onNavigate('menu')}
+              className="btn btn-ghost btn-lg w-full flex items-center justify-center gap-2"
             >
-              <Share2 size={18} />
-              <span className="font-bold tracking-wide">Compartir Resultado</span>
+              <Home size={18} />
+              <span>Menú Principal</span>
             </button>
-          )}
-        </motion.div>
+
+            {navigator.share && (
+              <button
+                onClick={shareScore}
+                className="btn btn-ghost btn-lg w-full flex items-center justify-center gap-2"
+              >
+                <Share2 size={18} />
+                <span>Compartir Resultado</span>
+              </button>
+            )}
+          </motion.div>
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
