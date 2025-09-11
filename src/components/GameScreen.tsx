@@ -36,10 +36,10 @@ export function GameScreen({
 
   if (!currentQuestion || !category) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
-          <p>Cargando pregunta...</p>
+          <div className="loading-spinner mx-auto mb-4"></div>
+          <p className="text-slate-600">Cargando pregunta...</p>
         </div>
       </div>
     );
@@ -48,19 +48,15 @@ export function GameScreen({
   const progress = ((session.currentQuestionIndex + 1) / categoryQuestions.length) * 100;
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="min-h-screen p-4 sm:p-6 lg:p-8"
-    >
-      <div className="max-w-5xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      <div className="container-custom section-padding">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row items-center justify-between mb-6 sm:mb-8 gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">
           <button
             onClick={() => onNavigate('categories')}
-            className="btn-ghost flex items-center gap-2 self-start sm:self-center"
+            className="btn-ghost flex items-center gap-2"
           >
-            <ArrowLeft size={20} />
+            <ArrowLeft className="w-5 h-5" />
             Volver
           </button>
           
@@ -73,13 +69,13 @@ export function GameScreen({
 
         {/* Progress Bar */}
         <div className="mb-8">
-          <div className="flex justify-between text-sm sm:text-base text-white/80 mb-3 font-medium">
+          <div className="flex justify-between text-slate-600 mb-3 font-medium">
             <span>Pregunta {session.currentQuestionIndex + 1} de {categoryQuestions.length}</span>
             <span>Progreso: {Math.round(progress)}%</span>
           </div>
-          <div className="w-full bg-white/20 rounded-full h-3 shadow-inner">
+          <div className="progress-bar">
             <motion.div
-              className="bg-gradient-to-r from-green-400 to-blue-500 h-3 rounded-full shadow-lg"
+              className="progress-fill"
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.5 }}
@@ -88,38 +84,38 @@ export function GameScreen({
         </div>
 
         {/* Game Stats */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
           <div className="stat-card">
-            <div className="text-xl sm:text-2xl font-bold text-yellow-400 mb-1">{session.score}</div>
-            <div className="text-xs sm:text-sm text-white/80 font-medium">Puntos</div>
+            <div className="stat-value text-blue-600">{session.score}</div>
+            <div className="stat-label">Puntos</div>
           </div>
           <div className="stat-card">
-            <div className="flex items-center justify-center gap-1">
+            <div className="flex items-center justify-center gap-1 mb-2">
               {Array.from({ length: 3 }).map((_, i) => (
                 <Heart
                   key={i}
                   size={18}
-                  className={i < session.lives ? 'text-red-500 fill-current' : 'text-white/30'}
+                  className={i < session.lives ? 'text-red-500 fill-current' : 'text-slate-300'}
                 />
               ))}
             </div>
-            <div className="text-xs sm:text-sm text-white/80 font-medium mt-1">Vidas</div>
+            <div className="stat-label">Vidas</div>
           </div>
           <div className="stat-card">
-            <div className="flex items-center justify-center gap-1">
-              <Zap size={18} className="text-orange-400" />
-              <span className="text-xl sm:text-2xl font-bold text-orange-400">{session.streak}</span>
+            <div className="flex items-center justify-center gap-1 mb-2">
+              <Zap size={18} className="text-orange-500" />
+              <span className="stat-value text-orange-600">{session.streak}</span>
             </div>
-            <div className="text-xs sm:text-sm text-white/80 font-medium">Racha</div>
+            <div className="stat-label">Racha</div>
           </div>
           <div className="stat-card">
-            <div className="flex items-center justify-center gap-1">
-              <Clock size={18} className={session.timeRemaining <= 10 ? 'text-red-400' : 'text-blue-400'} />
-              <span className={`text-xl sm:text-2xl font-bold ${session.timeRemaining <= 10 ? 'text-red-400' : 'text-blue-400'}`}>
+            <div className="flex items-center justify-center gap-1 mb-2">
+              <Clock size={18} className={session.timeRemaining <= 10 ? 'text-red-500' : 'text-blue-500'} />
+              <span className={`stat-value ${session.timeRemaining <= 10 ? 'text-red-600' : 'text-blue-600'}`}>
                 {session.timeRemaining}
               </span>
             </div>
-            <div className="text-xs sm:text-sm text-white/80 font-medium">Tiempo</div>
+            <div className="stat-label">Tiempo</div>
           </div>
         </div>
 
@@ -128,20 +124,20 @@ export function GameScreen({
           key={currentQuestion.id}
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
-          className="glass-card p-6 sm:p-8 mb-8"
+          className="card-elevated p-8 mb-8"
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3">
-            <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-              currentQuestion.difficulty === 'easy' ? 'bg-green-500' :
-              currentQuestion.difficulty === 'medium' ? 'bg-yellow-500' : 'bg-red-500'
+            <span className={`badge ${
+              currentQuestion.difficulty === 'easy' ? 'badge-success' :
+              currentQuestion.difficulty === 'medium' ? 'badge-warning' : 'badge-danger'
             }`}>
               {currentQuestion.difficulty === 'easy' ? 'Fácil' :
                currentQuestion.difficulty === 'medium' ? 'Medio' : 'Difícil'}
             </span>
-            <span className="text-yellow-400 font-bold text-lg">+{currentQuestion.points} pts</span>
+            <span className="text-blue-600 font-bold text-lg">+{currentQuestion.points} pts</span>
           </div>
           
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-8 leading-relaxed">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-slate-800 leading-relaxed">
             {currentQuestion.question}
           </h2>
 
@@ -171,15 +167,15 @@ export function GameScreen({
                     className={optionClass}
                   >
                     <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center font-bold text-lg flex-shrink-0">
+                      <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-700 flex-shrink-0">
                         {String.fromCharCode(65 + index)}
                       </div>
-                      <span className="flex-1 text-left text-base sm:text-lg">{option}</span>
+                      <span className="flex-1 text-left text-slate-700">{option}</span>
                       {showResult && index === currentQuestion.correctAnswer && (
-                        <div className="text-green-400 text-xl">✓</div>
+                        <div className="text-emerald-500 text-xl">✓</div>
                       )}
                       {showResult && index === selectedAnswer && index !== currentQuestion.correctAnswer && (
-                        <div className="text-red-400 text-xl">✗</div>
+                        <div className="text-red-500 text-xl">✗</div>
                       )}
                     </div>
                   </motion.button>
@@ -192,18 +188,18 @@ export function GameScreen({
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-6 p-5 rounded-2xl bg-white/10 border border-white/20"
+              className="mt-6 p-5 rounded-2xl bg-slate-50 border border-slate-200"
             >
               {selectedAnswer === currentQuestion.correctAnswer ? (
-                <div className="text-green-400 font-bold text-lg">
+                <div className="text-emerald-600 font-bold text-lg">
                   ¡Correcto! +{currentQuestion.points + Math.floor(session.timeRemaining / 5)} puntos
                 </div>
               ) : selectedAnswer === null ? (
-                <div className="text-red-400 font-bold text-lg">
+                <div className="text-red-600 font-bold text-lg">
                   ¡Se acabó el tiempo! La respuesta correcta era: {currentQuestion.options[currentQuestion.correctAnswer]}
                 </div>
               ) : (
-                <div className="text-red-400 font-bold text-lg">
+                <div className="text-red-600 font-bold text-lg">
                   Incorrecto. La respuesta correcta era: {currentQuestion.options[currentQuestion.correctAnswer]}
                 </div>
               )}
@@ -211,6 +207,6 @@ export function GameScreen({
           )}
         </motion.div>
       </div>
-    </motion.div>
+    </div>
   );
 }

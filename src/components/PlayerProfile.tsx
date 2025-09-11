@@ -35,38 +35,34 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="min-h-screen p-4 sm:p-6 lg:p-8"
-    >
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      <div className="container-custom section-padding">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row items-center justify-between mb-8 sm:mb-12 gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-between mb-12 gap-4">
           <button
             onClick={() => onNavigate('menu')}
-            className="btn-ghost flex items-center gap-2 self-start sm:self-center"
+            className="btn-ghost flex items-center gap-2"
           >
-            <ArrowLeft size={20} />
+            <ArrowLeft className="w-5 h-5" />
             Volver al Menú
           </button>
           
-          <h1 className="text-2xl sm:text-3xl font-bold text-gradient">
-            {player ? 'Mi Perfil' : 'Crear Perfil'}
+          <h1 className="heading-secondary">
+            <span className="text-gradient">{player ? 'Mi Perfil' : 'Crear Perfil'}</span>
           </h1>
           
           <div className="hidden sm:block w-32"></div>
         </div>
 
-        <div className="space-y-6 sm:space-y-8">
+        <div className="max-w-2xl mx-auto space-y-8">
           {/* Profile Card */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="glass-card p-8 sm:p-10"
+            className="card-elevated p-10"
           >
             <div className="text-center mb-8">
-              <div className="text-7xl sm:text-8xl mb-6">{selectedAvatar}</div>
+              <div className="text-8xl mb-6">{selectedAvatar}</div>
               
               {isEditing ? (
                 <div className="space-y-6">
@@ -75,21 +71,21 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Ingresa tu nombre"
-                    className="w-full px-6 py-4 bg-white/10 border border-white/30 rounded-2xl text-white placeholder-white/50 focus:outline-none focus:border-blue-400 text-lg transition-all duration-300"
+                    className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-500 focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-400 text-lg transition-all duration-300"
                     maxLength={20}
                   />
                   
                   <div>
-                    <h3 className="text-xl sm:text-2xl font-bold mb-6 text-gradient">Elige tu Avatar</h3>
+                    <h3 className="text-2xl font-bold mb-6 text-slate-800">Elige tu Avatar</h3>
                     <div className="grid grid-cols-5 sm:grid-cols-6 lg:grid-cols-7 gap-3">
                       {avatars.map((avatar, index) => (
                         <button
                           key={index}
                           onClick={() => setSelectedAvatar(avatar)}
-                          className={`text-3xl p-3 rounded-2xl transition-all duration-300 ${
+                          className={`text-3xl p-3 rounded-xl transition-all duration-300 ${
                             selectedAvatar === avatar
-                              ? 'bg-blue-500/30 border-2 border-blue-400 scale-110'
-                              : 'bg-white/10 hover:bg-white/20 hover:scale-105'
+                              ? 'bg-blue-100 border-2 border-blue-400 scale-110'
+                              : 'bg-slate-50 hover:bg-slate-100 hover:scale-105'
                           }`}
                         >
                           {avatar}
@@ -102,30 +98,30 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
                     <button
                       onClick={handleSave}
                       disabled={!name.trim()}
-                      className="btn-success flex-1 flex items-center justify-center gap-3 text-lg py-5"
+                      className="btn-primary flex-1 flex items-center justify-center gap-3 btn-large"
                     >
-                      <Save size={20} />
-                      <span className="font-bold tracking-wide">Guardar Perfil</span>
+                      <Save className="w-5 h-5" />
+                      <span>Guardar Perfil</span>
                     </button>
                     {player && (
                       <button
                         onClick={() => setIsEditing(false)}
-                        className="btn-ghost flex-1 text-lg py-5"
+                        className="btn-ghost flex-1 btn-large"
                       >
-                        <span className="font-bold tracking-wide">Cancelar</span>
+                        Cancelar
                       </button>
                     )}
                   </div>
                 </div>
               ) : (
                 <div>
-                  <h2 className="text-3xl sm:text-4xl font-bold mb-3 text-gradient">{player?.name}</h2>
+                  <h2 className="text-4xl font-bold mb-4 text-slate-800">{player?.name}</h2>
                   <button
                     onClick={() => setIsEditing(true)}
-                    className="btn-primary flex items-center gap-3 text-lg py-4 px-8"
+                    className="btn-secondary flex items-center gap-3 btn-large"
                   >
-                    <User size={20} />
-                    <span className="font-bold tracking-wide">Editar Perfil</span>
+                    <User className="w-5 h-5" />
+                    <span>Editar Perfil</span>
                   </button>
                 </div>
               )}
@@ -138,32 +134,32 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-4"
+              className="grid grid-cols-2 md:grid-cols-4 gap-6"
             >
               <div className="stat-card">
-                <Trophy className="text-yellow-400 mx-auto mb-3" size={28} />
-                <div className="text-xl sm:text-2xl font-bold mb-1">{player.totalPoints.toLocaleString()}</div>
-                <div className="text-sm text-white/80 font-medium">Puntos Totales</div>
+                <Trophy className="text-amber-500 mx-auto mb-3" size={28} />
+                <div className="stat-value text-amber-600">{player.totalPoints.toLocaleString()}</div>
+                <div className="stat-label">Puntos Totales</div>
               </div>
               
               <div className="stat-card">
-                <Target className="text-blue-400 mx-auto mb-3" size={28} />
-                <div className="text-xl sm:text-2xl font-bold mb-1">{player.gamesPlayed}</div>
-                <div className="text-sm text-white/80 font-medium">Partidas Jugadas</div>
+                <Target className="text-blue-500 mx-auto mb-3" size={28} />
+                <div className="stat-value text-blue-600">{player.gamesPlayed}</div>
+                <div className="stat-label">Partidas Jugadas</div>
               </div>
               
               <div className="stat-card">
-                <Zap className="text-orange-400 mx-auto mb-3" size={28} />
-                <div className="text-xl sm:text-2xl font-bold mb-1">{player.bestStreak}</div>
-                <div className="text-sm text-white/80 font-medium">Mejor Racha</div>
+                <Zap className="text-orange-500 mx-auto mb-3" size={28} />
+                <div className="stat-value text-orange-600">{player.bestStreak}</div>
+                <div className="stat-label">Mejor Racha</div>
               </div>
               
               <div className="stat-card">
-                <Calendar className="text-green-400 mx-auto mb-3" size={28} />
-                <div className="text-xl sm:text-2xl font-bold mb-1">
+                <Calendar className="text-emerald-500 mx-auto mb-3" size={28} />
+                <div className="stat-value text-emerald-600">
                   {Math.floor((Date.now() - player.createdAt.getTime()) / (1000 * 60 * 60 * 24)) + 1}
                 </div>
-                <div className="text-sm text-white/80 font-medium">Días Activo</div>
+                <div className="stat-label">Días Activo</div>
               </div>
             </motion.div>
           )}
@@ -174,19 +170,21 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="glass-card p-6 sm:p-8"
+              className="card-elevated p-8"
             >
-              <h3 className="text-xl sm:text-2xl font-bold mb-6 text-gradient">🏆 Logros</h3>
+              <h3 className="text-2xl font-bold mb-6 text-slate-800">🏆 Logros</h3>
               
               {player.achievements.length === 0 ? (
-                <div className="text-center py-12 text-white/80">
+                <div className="text-center py-12">
                   <div className="text-6xl mb-4">🎯</div>
-                  <p className="text-lg">¡Juega más partidas para desbloquear logros!</p>
+                  <p className="text-body mb-8">
+                    ¡Juega más partidas para desbloquear logros!
+                  </p>
                   <button
                     onClick={() => onNavigate('categories')}
-                    className="btn-primary mt-6 flex items-center gap-2 mx-auto"
+                    className="btn-primary flex items-center gap-2 mx-auto"
                   >
-                    <span className="font-bold tracking-wide">Comenzar a Jugar</span>
+                    <span>Comenzar a Jugar</span>
                   </button>
                 </div>
               ) : (
@@ -194,10 +192,10 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
                   {player.achievements.map((achievement, index) => (
                     <div
                       key={index}
-                      className="flex items-center gap-4 p-4 bg-white/10 rounded-2xl border border-white/20"
+                      className="flex items-center gap-4 p-4 bg-slate-50 rounded-xl border border-slate-200"
                     >
                       <div className="text-3xl">🏅</div>
-                      <span className="text-lg">{achievement}</span>
+                      <span className="text-lg text-slate-700">{achievement}</span>
                     </div>
                   ))}
                 </div>
@@ -206,6 +204,6 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
           )}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
