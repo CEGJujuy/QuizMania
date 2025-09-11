@@ -78,24 +78,24 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
                     className="w-full px-6 py-4 bg-white/10 border border-white/30 rounded-2xl text-white placeholder-white/50 focus:outline-none focus:border-blue-400 text-lg transition-all duration-300"
                     maxLength={20}
                   />
-            className="glass-card p-6 sm:p-8"
+                  
                   <div>
-            <h3 className="text-xl sm:text-2xl font-bold mb-6 text-gradient">🏆 Logros</h3>
+                    <h3 className="text-xl sm:text-2xl font-bold mb-6 text-gradient">Elige tu Avatar</h3>
                     <div className="grid grid-cols-5 sm:grid-cols-6 lg:grid-cols-7 gap-3">
                       {avatars.map((avatar, index) => (
-              <div className="text-center py-12 text-white/80">
-                <div className="text-6xl mb-4">🎯</div>
-                <p className="text-lg">¡Juega más partidas para desbloquear logros!</p>
+                        <button
+                          key={index}
+                          onClick={() => setSelectedAvatar(avatar)}
                           className={`text-3xl p-3 rounded-2xl transition-all duration-300 ${
                             selectedAvatar === avatar
-              <div className="grid gap-3">
+                              ? 'bg-blue-500/30 border-2 border-blue-400 scale-110'
                               : 'bg-white/10 hover:bg-white/20 hover:scale-105'
                           }`}
                         >
-                    className="flex items-center gap-4 p-4 bg-white/10 rounded-2xl border border-white/20"
+                          {avatar}
                         </button>
-                    <div className="text-3xl">🏅</div>
-                    <span className="text-lg">{achievement}</span>
+                      ))}
+                    </div>
                   </div>
                   
                   <div className="flex flex-col sm:flex-row gap-4">
@@ -114,24 +114,21 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
                       >
                         Cancelar
                       </button>
-            <div className="stat-card">
-              <Target className="text-blue-400 mx-auto mb-3" size={28} />
-              <div className="text-xl sm:text-2xl font-bold mb-1">{player.gamesPlayed}</div>
-              <div className="text-sm text-white/80 font-medium">Partidas Jugadas</div>
+                    )}
+                  </div>
+                </div>
+              ) : (
                 <div>
                   <h2 className="text-3xl sm:text-4xl font-bold mb-3 text-gradient">{player?.name}</h2>
-            <div className="stat-card">
-              <Zap className="text-orange-400 mx-auto mb-3" size={28} />
-              <div className="text-xl sm:text-2xl font-bold mb-1">{player.bestStreak}</div>
-              <div className="text-sm text-white/80 font-medium">Mejor Racha</div>
+                  <button
                     onClick={() => setIsEditing(true)}
                     className="btn-primary flex items-center gap-2 text-lg"
-            <div className="stat-card">
-              <Calendar className="text-green-400 mx-auto mb-3" size={28} />
-              <div className="text-xl sm:text-2xl font-bold mb-1">
-              <Trophy className="text-yellow-400 mx-auto mb-3" size={28} />
-              <div className="text-xl sm:text-2xl font-bold mb-1">{player.totalPoints.toLocaleString()}</div>
-              <div className="text-sm text-white/80 font-medium">Días Activo</div>
+                  >
+                    <User size={20} />
+                    Editar Perfil
+                  </button>
+                </div>
+              )}
             </div>
           </motion.div>
 
@@ -143,30 +140,30 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
               transition={{ delay: 0.2 }}
               className="grid grid-cols-2 md:grid-cols-4 gap-4"
             >
-              <div className="game-card text-center">
-                <Trophy className="text-yellow-400 mx-auto mb-2" size={24} />
-                <div className="text-xl font-bold">{player.totalPoints.toLocaleString()}</div>
-                <div className="text-xs text-white/70">Puntos Totales</div>
+              <div className="stat-card">
+                <Trophy className="text-yellow-400 mx-auto mb-3" size={28} />
+                <div className="text-xl sm:text-2xl font-bold mb-1">{player.totalPoints.toLocaleString()}</div>
+                <div className="text-sm text-white/80 font-medium">Puntos Totales</div>
               </div>
               
-              <div className="game-card text-center">
-                <Target className="text-blue-400 mx-auto mb-2" size={24} />
-                <div className="text-xl font-bold">{player.gamesPlayed}</div>
-                <div className="text-xs text-white/70">Partidas Jugadas</div>
+              <div className="stat-card">
+                <Target className="text-blue-400 mx-auto mb-3" size={28} />
+                <div className="text-xl sm:text-2xl font-bold mb-1">{player.gamesPlayed}</div>
+                <div className="text-sm text-white/80 font-medium">Partidas Jugadas</div>
               </div>
               
-              <div className="game-card text-center">
-                <Zap className="text-orange-400 mx-auto mb-2" size={24} />
-                <div className="text-xl font-bold">{player.bestStreak}</div>
-                <div className="text-xs text-white/70">Mejor Racha</div>
+              <div className="stat-card">
+                <Zap className="text-orange-400 mx-auto mb-3" size={28} />
+                <div className="text-xl sm:text-2xl font-bold mb-1">{player.bestStreak}</div>
+                <div className="text-sm text-white/80 font-medium">Mejor Racha</div>
               </div>
               
-              <div className="game-card text-center">
-                <Calendar className="text-green-400 mx-auto mb-2" size={24} />
-                <div className="text-xl font-bold">
+              <div className="stat-card">
+                <Calendar className="text-green-400 mx-auto mb-3" size={28} />
+                <div className="text-xl sm:text-2xl font-bold mb-1">
                   {Math.floor((Date.now() - player.createdAt.getTime()) / (1000 * 60 * 60 * 24)) + 1}
                 </div>
-                <div className="text-xs text-white/70">Días Activo</div>
+                <div className="text-sm text-white/80 font-medium">Días Activo</div>
               </div>
             </motion.div>
           )}
@@ -177,24 +174,24 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="game-card"
+              className="glass-card p-6 sm:p-8"
             >
-              <h3 className="text-lg font-bold mb-4">🏆 Logros</h3>
+              <h3 className="text-xl sm:text-2xl font-bold mb-6 text-gradient">🏆 Logros</h3>
               
               {player.achievements.length === 0 ? (
-                <div className="text-center py-8 text-white/70">
-                  <div className="text-4xl mb-2">🎯</div>
-                  <p>¡Juega más partidas para desbloquear logros!</p>
+                <div className="text-center py-12 text-white/80">
+                  <div className="text-6xl mb-4">🎯</div>
+                  <p className="text-lg">¡Juega más partidas para desbloquear logros!</p>
                 </div>
               ) : (
-                <div className="grid gap-2">
+                <div className="grid gap-3">
                   {player.achievements.map((achievement, index) => (
                     <div
                       key={index}
-                      className="flex items-center gap-3 p-3 bg-white/10 rounded-lg"
+                      className="flex items-center gap-4 p-4 bg-white/10 rounded-2xl border border-white/20"
                     >
-                      <div className="text-2xl">🏅</div>
-                      <span>{achievement}</span>
+                      <div className="text-3xl">🏅</div>
+                      <span className="text-lg">{achievement}</span>
                     </div>
                   ))}
                 </div>
