@@ -64,27 +64,27 @@ function App() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="min-h-screen p-4"
+      className="min-h-screen p-4 sm:p-6 lg:p-8"
     >
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row items-center justify-between mb-8 sm:mb-12 gap-4">
           <button
             onClick={() => handleNavigate('menu')}
-            className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+            className="btn-ghost flex items-center gap-2 self-start sm:self-center"
           >
             <ArrowLeft size={20} />
             Volver al Menú
           </button>
           
-          <div className="text-center">
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-400 to-violet-400 bg-clip-text text-transparent">
+          <div className="text-center flex-1">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gradient mb-2">
               Elige tu Categoría
             </h1>
-            <p className="text-white/70">Selecciona un tema para comenzar</p>
+            <p className="text-white/80 text-lg font-light">Selecciona un tema para comenzar</p>
           </div>
           
-          <div></div>
+          <div className="hidden sm:block w-32"></div>
         </div>
 
         {/* Player Points */}
@@ -94,7 +94,7 @@ function App() {
             animate={{ opacity: 1, scale: 1 }}
             className="game-card mb-8 text-center"
           >
-            <div className="flex items-center justify-center gap-3">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <span className="text-2xl">{player.avatar}</span>
               <div>
                 <p className="font-bold text-lg">{player.name}</p>
@@ -105,7 +105,7 @@ function App() {
         )}
 
         {/* Categories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {categories.map((category, index) => {
             const isUnlocked = unlockedCategories.includes(category.id);
             
@@ -120,10 +120,10 @@ function App() {
               >
                 {/* Lock Overlay */}
                 {!isUnlocked && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-2xl">
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-3xl backdrop-blur-sm">
                     <div className="text-center">
                       <Lock className="text-white/70 mx-auto mb-2" size={32} />
-                      <p className="text-white/70 text-sm">
+                      <p className="text-white/80 text-sm font-medium">
                         Requiere {category.requiredPoints} puntos
                       </p>
                     </div>
@@ -131,12 +131,12 @@ function App() {
                 )}
 
                 {/* Category Content */}
-                <div className="text-center">
-                  <div className="text-4xl mb-3">{category.icon}</div>
-                  <h3 className="text-xl font-bold mb-2">{category.name}</h3>
-                  <p className="text-white/70 text-sm mb-4">{category.description}</p>
+                <div className="text-center p-2">
+                  <div className="text-5xl sm:text-6xl mb-4">{category.icon}</div>
+                  <h3 className="text-xl sm:text-2xl font-bold mb-3">{category.name}</h3>
+                  <p className="text-white/80 text-sm sm:text-base mb-6 leading-relaxed">{category.description}</p>
                   
-                  <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r ${category.color} text-white text-sm font-bold`}>
+                  <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r ${category.color} text-white text-sm font-semibold shadow-lg`}>
                     <Star size={14} />
                     <span>{category.requiredPoints} pts</span>
                   </div>
@@ -147,9 +147,9 @@ function App() {
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center"
+                    className="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center shadow-lg"
                   >
-                    <span className="text-white text-xs">✓</span>
+                    <span className="text-white text-sm font-bold">✓</span>
                   </motion.div>
                 )}
               </motion.div>
@@ -162,27 +162,27 @@ function App() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="mt-8 game-card text-center"
+          className="mt-12 glass-card p-6 sm:p-8 text-center"
         >
-          <h3 className="text-lg font-bold mb-4">🎯 Tu Progreso</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div>
-              <div className="text-2xl font-bold text-green-400">{unlockedCategories.length}</div>
-              <div className="text-xs text-white/70">Categorías Desbloqueadas</div>
+          <h3 className="text-xl sm:text-2xl font-bold mb-6 text-gradient">🎯 Tu Progreso</h3>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="stat-card">
+              <div className="text-2xl sm:text-3xl font-bold text-green-400 mb-1">{unlockedCategories.length}</div>
+              <div className="text-xs sm:text-sm text-white/80 font-medium">Categorías Desbloqueadas</div>
             </div>
-            <div>
-              <div className="text-2xl font-bold text-blue-400">{categories.length - unlockedCategories.length}</div>
-              <div className="text-xs text-white/70">Por Desbloquear</div>
+            <div className="stat-card">
+              <div className="text-2xl sm:text-3xl font-bold text-blue-400 mb-1">{categories.length - unlockedCategories.length}</div>
+              <div className="text-xs sm:text-sm text-white/80 font-medium">Por Desbloquear</div>
             </div>
-            <div>
-              <div className="text-2xl font-bold text-yellow-400">{player?.totalPoints || 0}</div>
-              <div className="text-xs text-white/70">Puntos Totales</div>
+            <div className="stat-card">
+              <div className="text-2xl sm:text-3xl font-bold text-yellow-400 mb-1">{player?.totalPoints || 0}</div>
+              <div className="text-xs sm:text-sm text-white/80 font-medium">Puntos Totales</div>
             </div>
-            <div>
-              <div className="text-2xl font-bold text-purple-400">
+            <div className="stat-card">
+              <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-1">
                 {categories.find(c => !unlockedCategories.includes(c.id))?.requiredPoints || 'MAX'}
               </div>
-              <div className="text-xs text-white/70">Próximo Objetivo</div>
+              <div className="text-xs sm:text-sm text-white/80 font-medium">Próximo Objetivo</div>
             </div>
           </div>
         </motion.div>

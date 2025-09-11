@@ -31,49 +31,49 @@ export function Leaderboard({ leaderboard, onNavigate }: LeaderboardProps) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="min-h-screen p-4"
+      className="min-h-screen p-4 sm:p-6 lg:p-8"
     >
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row items-center justify-between mb-8 sm:mb-12 gap-4">
           <button
             onClick={() => onNavigate('menu')}
-            className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+            className="btn-ghost flex items-center gap-2 self-start sm:self-center"
           >
             <ArrowLeft size={20} />
             Volver al Menú
           </button>
           
-          <div className="text-center">
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+          <div className="text-center flex-1">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gradient mb-2">
               🏆 Ranking Global
             </h1>
-            <p className="text-white/70">Top 10 mejores puntajes</p>
+            <p className="text-white/80 text-lg font-light">Top 10 mejores puntajes</p>
           </div>
           
-          <div></div>
+          <div className="hidden sm:block w-32"></div>
         </div>
 
         {sortedLeaderboard.length === 0 ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="game-card text-center py-12"
+            className="glass-card text-center py-16 px-8"
           >
-            <div className="text-6xl mb-4">🎯</div>
-            <h2 className="text-2xl font-bold mb-4">¡Sé el primero!</h2>
-            <p className="text-white/70 mb-6">
+            <div className="text-8xl mb-6">🎯</div>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-gradient">¡Sé el primero!</h2>
+            <p className="text-white/80 mb-8 text-lg leading-relaxed max-w-md mx-auto">
               Aún no hay puntajes registrados. ¡Juega una partida y establece el primer récord!
             </p>
             <button
               onClick={() => onNavigate('categories')}
-              className="btn-primary"
+              className="btn-primary text-lg"
             >
               Comenzar a Jugar
             </button>
           </motion.div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-4 sm:space-y-6">
             {sortedLeaderboard.map((entry, index) => {
               const category = getCategoryInfo(entry.category);
               const isTopThree = index < 3;
@@ -84,9 +84,9 @@ export function Leaderboard({ leaderboard, onNavigate }: LeaderboardProps) {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className={`game-card ${isTopThree ? 'ring-2 ring-yellow-400/50' : ''}`}
+                  className={`glass-card p-6 ${isTopThree ? 'ring-2 ring-yellow-400/50 shadow-2xl' : ''}`}
                 >
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 sm:gap-6">
                     {/* Rank */}
                     <div className="flex-shrink-0">
                       {getRankIcon(index)}
@@ -94,16 +94,16 @@ export function Leaderboard({ leaderboard, onNavigate }: LeaderboardProps) {
 
                     {/* Player Info */}
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-bold text-lg truncate">{entry.playerName}</h3>
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
+                        <h3 className="font-bold text-lg sm:text-xl truncate">{entry.playerName}</h3>
                         {category && (
-                          <span className={`px-2 py-1 rounded-full text-xs bg-gradient-to-r ${category.color} text-white`}>
+                          <span className={`px-3 py-1 rounded-full text-xs bg-gradient-to-r ${category.color} text-white font-medium shadow-lg self-start`}>
                             {category.icon} {category.name}
                           </span>
                         )}
                       </div>
                       
-                      <div className="flex items-center gap-4 text-sm text-white/70">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-white/80">
                         <div className="flex items-center gap-1">
                           <Calendar size={14} />
                           {entry.date.toLocaleDateString()}
@@ -111,7 +111,7 @@ export function Leaderboard({ leaderboard, onNavigate }: LeaderboardProps) {
                         {entry.streak > 0 && (
                           <div className="flex items-center gap-1">
                             <Zap size={14} className="text-orange-400" />
-                            <span>Racha: {entry.streak}</span>
+                            <span className="font-medium">Racha: {entry.streak}</span>
                           </div>
                         )}
                       </div>
@@ -119,10 +119,10 @@ export function Leaderboard({ leaderboard, onNavigate }: LeaderboardProps) {
 
                     {/* Score */}
                     <div className="text-right">
-                      <div className="text-2xl font-bold text-yellow-400">
+                      <div className="text-2xl sm:text-3xl font-bold text-yellow-400">
                         {entry.score.toLocaleString()}
                       </div>
-                      <div className="text-xs text-white/70">puntos</div>
+                      <div className="text-sm text-white/80 font-medium">puntos</div>
                     </div>
                   </div>
 
@@ -131,7 +131,7 @@ export function Leaderboard({ leaderboard, onNavigate }: LeaderboardProps) {
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ delay: 0.5 + index * 0.1 }}
-                      className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center text-xs font-bold text-black"
+                      className="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center text-sm font-bold text-black shadow-lg"
                     >
                       {index + 1}
                     </motion.div>
@@ -148,27 +148,27 @@ export function Leaderboard({ leaderboard, onNavigate }: LeaderboardProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4"
+            className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6"
           >
-            <div className="game-card text-center">
-              <div className="text-2xl font-bold text-blue-400">
+            <div className="stat-card">
+              <div className="text-2xl sm:text-3xl font-bold text-blue-400 mb-2">
                 {sortedLeaderboard.length}
               </div>
-              <div className="text-sm text-white/70">Jugadores</div>
+              <div className="text-sm text-white/80 font-medium">Jugadores</div>
             </div>
             
-            <div className="game-card text-center">
-              <div className="text-2xl font-bold text-green-400">
+            <div className="stat-card">
+              <div className="text-2xl sm:text-3xl font-bold text-green-400 mb-2">
                 {Math.max(...sortedLeaderboard.map(e => e.score)).toLocaleString()}
               </div>
-              <div className="text-sm text-white/70">Mejor Puntaje</div>
+              <div className="text-sm text-white/80 font-medium">Mejor Puntaje</div>
             </div>
             
-            <div className="game-card text-center">
-              <div className="text-2xl font-bold text-orange-400">
+            <div className="stat-card">
+              <div className="text-2xl sm:text-3xl font-bold text-orange-400 mb-2">
                 {Math.max(...sortedLeaderboard.map(e => e.streak))}
               </div>
-              <div className="text-sm text-white/70">Mejor Racha</div>
+              <div className="text-sm text-white/80 font-medium">Mejor Racha</div>
             </div>
           </motion.div>
         )}

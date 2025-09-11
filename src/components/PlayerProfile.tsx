@@ -38,100 +38,100 @@ export function PlayerProfile({ player, onNavigate, onSavePlayer }: PlayerProfil
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="min-h-screen p-4"
+      className="min-h-screen p-4 sm:p-6 lg:p-8"
     >
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-3xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row items-center justify-between mb-8 sm:mb-12 gap-4">
           <button
             onClick={() => onNavigate('menu')}
-            className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+            className="btn-ghost flex items-center gap-2 self-start sm:self-center"
           >
             <ArrowLeft size={20} />
             Volver al Menú
           </button>
           
-          <h1 className="text-2xl font-bold">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gradient">
             {player ? 'Mi Perfil' : 'Crear Perfil'}
           </h1>
           
-          <div></div>
+          <div className="hidden sm:block w-32"></div>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-6 sm:space-y-8">
           {/* Profile Card */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="game-card"
+            className="glass-card p-8 sm:p-10"
           >
-            <div className="text-center mb-6">
-              <div className="text-6xl mb-4">{selectedAvatar}</div>
+            <div className="text-center mb-8">
+              <div className="text-7xl sm:text-8xl mb-6">{selectedAvatar}</div>
               
               {isEditing ? (
-                <div className="space-y-4">
+                <div className="space-y-6">
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Ingresa tu nombre"
-                    className="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-blue-400"
+                    className="w-full px-6 py-4 bg-white/10 border border-white/30 rounded-2xl text-white placeholder-white/50 focus:outline-none focus:border-blue-400 text-lg transition-all duration-300"
                     maxLength={20}
                   />
-                  
+            className="glass-card p-6 sm:p-8"
                   <div>
-                    <p className="text-sm text-white/70 mb-3">Elige tu avatar:</p>
-                    <div className="grid grid-cols-6 gap-2">
+            <h3 className="text-xl sm:text-2xl font-bold mb-6 text-gradient">🏆 Logros</h3>
+                    <div className="grid grid-cols-5 sm:grid-cols-6 lg:grid-cols-7 gap-3">
                       {avatars.map((avatar, index) => (
-                        <button
-                          key={index}
-                          onClick={() => setSelectedAvatar(avatar)}
-                          className={`text-2xl p-2 rounded-lg transition-all ${
+              <div className="text-center py-12 text-white/80">
+                <div className="text-6xl mb-4">🎯</div>
+                <p className="text-lg">¡Juega más partidas para desbloquear logros!</p>
+                          className={`text-3xl p-3 rounded-2xl transition-all duration-300 ${
                             selectedAvatar === avatar
-                              ? 'bg-blue-500/50 border-2 border-blue-400'
-                              : 'bg-white/10 hover:bg-white/20'
+              <div className="grid gap-3">
+                              : 'bg-white/10 hover:bg-white/20 hover:scale-105'
                           }`}
                         >
-                          {avatar}
+                    className="flex items-center gap-4 p-4 bg-white/10 rounded-2xl border border-white/20"
                         </button>
-                      ))}
-                    </div>
+                    <div className="text-3xl">🏅</div>
+                    <span className="text-lg">{achievement}</span>
                   </div>
                   
-                  <div className="flex gap-3">
+                  <div className="flex flex-col sm:flex-row gap-4">
                     <button
                       onClick={handleSave}
                       disabled={!name.trim()}
-                      className="btn-success flex-1 flex items-center justify-center gap-2"
+                      className="btn-success flex-1 flex items-center justify-center gap-2 text-lg"
                     >
-                      <Save size={16} />
+                      <Save size={20} />
                       Guardar
                     </button>
                     {player && (
                       <button
                         onClick={() => setIsEditing(false)}
-                        className="btn-secondary flex-1"
+                        className="btn-ghost flex-1 text-lg"
                       >
                         Cancelar
                       </button>
-                    )}
-                  </div>
-                </div>
-              ) : (
+            <div className="stat-card">
+              <Target className="text-blue-400 mx-auto mb-3" size={28} />
+              <div className="text-xl sm:text-2xl font-bold mb-1">{player.gamesPlayed}</div>
+              <div className="text-sm text-white/80 font-medium">Partidas Jugadas</div>
                 <div>
-                  <h2 className="text-2xl font-bold mb-2">{player?.name}</h2>
-                  <p className="text-white/70 mb-4">
-                    Miembro desde {player?.createdAt.toLocaleDateString()}
-                  </p>
-                  <button
+                  <h2 className="text-3xl sm:text-4xl font-bold mb-3 text-gradient">{player?.name}</h2>
+            <div className="stat-card">
+              <Zap className="text-orange-400 mx-auto mb-3" size={28} />
+              <div className="text-xl sm:text-2xl font-bold mb-1">{player.bestStreak}</div>
+              <div className="text-sm text-white/80 font-medium">Mejor Racha</div>
                     onClick={() => setIsEditing(true)}
-                    className="btn-primary flex items-center gap-2"
-                  >
-                    <User size={16} />
-                    Editar Perfil
-                  </button>
-                </div>
-              )}
+                    className="btn-primary flex items-center gap-2 text-lg"
+            <div className="stat-card">
+              <Calendar className="text-green-400 mx-auto mb-3" size={28} />
+              <div className="text-xl sm:text-2xl font-bold mb-1">
+              <Trophy className="text-yellow-400 mx-auto mb-3" size={28} />
+              <div className="text-xl sm:text-2xl font-bold mb-1">{player.totalPoints.toLocaleString()}</div>
+              <div className="text-sm text-white/80 font-medium">Días Activo</div>
             </div>
           </motion.div>
 
