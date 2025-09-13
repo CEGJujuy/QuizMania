@@ -130,7 +130,7 @@
 
   /* Stats Cards - Modern Design */
   .stat-modern {
-    @apply floating-card p-8 text-center group hover:bg-gradient-to-br hover:from-indigo-50 hover:to-purple-50;
+    @apply floating-card p-8 text-center hover:bg-gradient-to-br hover:from-indigo-50 hover:to-purple-50;
   }
   
   .stat-value-modern {
