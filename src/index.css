@@ -143,7 +143,7 @@
 
   /* Category Cards - Unique Design */
   .category-modern {
-    @apply floating-card p-10 text-center group cursor-pointer relative overflow-hidden;
+    @apply floating-card p-10 text-center cursor-pointer relative overflow-hidden;
   }
   
   .category-modern::before {

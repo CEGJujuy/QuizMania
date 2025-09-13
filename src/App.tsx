@@ -124,7 +124,7 @@ function App() {
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.15 }}
-                  className={`category-modern ${!isUnlocked ? 'locked' : ''}`}
+                  className={`category-modern group ${!isUnlocked ? 'locked' : ''}`}
                   onClick={() => isUnlocked && handleCategorySelect(category.id)}
                 >
                   {/* Lock Overlay */}
