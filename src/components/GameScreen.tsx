@@ -179,7 +179,7 @@ export function GameScreen({
                       transition={{ delay: index * 0.15, duration: 0.5 }}
                       onClick={() => handleAnswer(index)}
                       disabled={isAnswered}
-                      className={optionClass}
+                      className={`${optionClass} group`}
                     >
                       <div className="flex items-center gap-6">
                         <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center font-black text-slate-700 flex-shrink-0 text-xl">

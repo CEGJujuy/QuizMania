@@ -161,7 +161,7 @@
 
   /* Question Options - Interactive Design */
   .option-modern {
-    @apply floating-card p-6 text-left cursor-pointer group relative overflow-hidden;
+    @apply floating-card p-6 text-left cursor-pointer relative overflow-hidden;
   }
   
   .option-modern::before {
