@@ -47,6 +47,9 @@ export default {
           900: '#713f12',
         }
       },
+      boxShadow: {
+        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+      },
       animation: {
         'bounce-slow': 'bounce 2s infinite',
         'pulse-fast': 'pulse 1s infinite',
