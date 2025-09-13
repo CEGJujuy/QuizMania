@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      maxWidth: {
+        '8xl': '90rem',
+      },
       colors: {
         primary: {
           50: '#fef2f2',
